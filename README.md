@@ -55,6 +55,28 @@
 * Frontend  - Bootstrap
 * Data assumption - User provides monthly electricity bills as input to the app
 
+## Directory Structure
+
+.
+└── IBM-Hack-2019
+    ├── README.md
+    └── src
+        ├── Pipfile
+        ├── Pipfile.lock
+        ├── db.sqlite3
+        ├── greenticks
+        │   ├── __init__.py
+        │   ├── settings
+        │   │   ├── __init__.py
+        │   │   ├── base.py
+        │   │   ├── local.py
+        │   │   └── production.py
+        │   ├── urls.py
+        │   └── wsgi.py
+        ├── manage.py
+        └── requirements.txt
+
+
 ## Set up
 ```bash
 virtualenv --python=python3.6 venv
