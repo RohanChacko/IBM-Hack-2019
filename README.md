@@ -61,8 +61,6 @@
 └── IBM-Hack-2019
     ├── README.md
     └── src
-        ├── Pipfile
-        ├── Pipfile.lock
         ├── db.sqlite3
         ├── greenticks
         │   ├── __init__.py
@@ -75,6 +73,13 @@
         │   └── wsgi.py
         ├── manage.py
         └── requirements.txt
+
+      
+* `IBM-Hack-2019/src/` directory contains the source code for the application.
+* `IBM-Hack-2019/src/greenticks` directory contains the source code for the main application.
+* `IBM-Hack-2019/src/greenticks/settings/base.py` contains the base settings for the application.
+* `IBM-Hack-2019/src/greenticks/settings/local.py` contains the local settings for the application, these settings are meant for local testing environments.
+* `IBM-Hack-2019/src/greenticks/settings/production.py` contains the production settings for the application, these settings are meant for deployment purposes.
 
 
 ## Set up
