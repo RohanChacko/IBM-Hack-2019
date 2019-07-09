@@ -65,3 +65,4 @@ pip install -r requirements.txt
 ## Notes
 * Do not push the venv directory. Maintain a local copy of it and install dependencies from `requirements.txt` as and when required
 * Save all app related files outside venv
+* `pip freeze > requirements.txt` everytime you install a new package
