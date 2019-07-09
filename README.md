@@ -81,6 +81,16 @@
 * `IBM-Hack-2019/src/greenticks/settings/local.py` contains the local settings for the application, these settings are meant for local testing environments.
 * `IBM-Hack-2019/src/greenticks/settings/production.py` contains the production settings for the application, these settings are meant for deployment purposes.
 
+## Some Important Commands
+
+* Running Migration
+`cd IBM-Hack-2019/src/`
+`python manage.py migrate`
+
+* Creating Super Users
+`cd IBM-Hack-2019/src/`
+`python manage.py createsuperuser`
+
 
 ## Set up
 ```bash
