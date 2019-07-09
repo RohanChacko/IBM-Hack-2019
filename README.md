@@ -1,5 +1,6 @@
 # IBM-Hack-2019
 ## Topic: Energy Audit for households
+#### Team: Greenticks
 
 ## Modules
 
@@ -23,7 +24,7 @@
   * Contains graphs, statistics, basic data visualizations.
   * Prominently shows user how much energy/money user has saved after using the app
 
-* Suggestions (can be combined with dashboard)
+* Suggestions (can be combined with Dashboard)
   * Display suggestions/tips/recommendations to help user save energy
 
 * Leaderboard
@@ -36,10 +37,18 @@
 ## TODO
 
 | Checkbox  | Task       | Assigned   |
-| :---------| :--------- | :--------- |
+| :-------: | :--------- | :--------: |
 | &#9744;   | Set up basic infrastructure | Aadil |
+| &#9744;   | Scrap data for training model | Zubair, Athreya, Chacko |
+| &#9744;   | Train the model and deploy  | Zubair, Athreya, Chacko |
 | &#9744;   | Set up user authentication (OAuth or custom) | Anyone |
 | &#9744;   | Integrate Watson APIs into the app | Anyone |
 | &#9744;   | Choose a database location for storage (cloud/storage) | Anyone |
 | &#9744;   | Get user's friends (and/or) aggregate people based on location vicinity for leaderboard. If going with friends, need to find a way to get user's friends info. If going with people in vicinity, need to get vicinity information | Anyone |
 | &#9744;   | Documentation (README, ppt, code comments, video) | EVERYONE |
+
+## Other details
+
+* Framework - Django
+* Frontend  - Bootstrap
+* Data assumption - User provides monthly electricity bills as input to the app
