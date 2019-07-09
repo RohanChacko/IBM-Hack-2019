@@ -93,6 +93,10 @@
 `cd IBM-Hack-2019/src/`
 `python manage.py createsuperuser`
 
+* Running the Local Server
+`cd IBM-Hack-2019/src/`
+`python manage.py runserver`
+
 
 ## Set up
 ```bash
