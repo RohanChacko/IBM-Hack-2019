@@ -57,6 +57,7 @@
 
 ## Directory Structure
 
+```
 .
 └── IBM-Hack-2019
     ├── README.md
@@ -73,6 +74,7 @@
         │   └── wsgi.py
         ├── manage.py
         └── requirements.txt
+```
 
       
 * `IBM-Hack-2019/src/` directory contains the source code for the application.
