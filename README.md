@@ -50,6 +50,18 @@
 
 ## Other details
 
+* Python version - 3.6
 * Framework - Django
 * Frontend  - Bootstrap
 * Data assumption - User provides monthly electricity bills as input to the app
+
+## Set up
+```bash
+virtualenv --python=python3.6 venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Notes
+* Do not push the venv directory. Maintain a local copy of it and install dependencies from `requirements.txt` as and when required
+* Save all app related files outside venv
