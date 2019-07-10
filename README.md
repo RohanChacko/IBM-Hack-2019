@@ -2,6 +2,27 @@
 ## Topic: Energy Audit for households
 #### Team: Greenticks
 
+## Notes on pushing to IBM Cloud
+
+### Login details
+* IBM Cloud ID: `rohanchacko007@gmail.com`
+* Password: `Greenticks4$`
+
+### Prerequisites
+* Install IBMCloud CLI `curl -sL https://ibm.biz/idt-installer | bash
+`  
+
+After making changes to the app, run the following commands to push to IBM Cloud
+```bash
+ibmcloud login
+ibmcloud target --cf
+ibmcloud cf push Energy\ Auditor -b https://github.com/cloudfoundry/python-buildpack#v1.6.34
+```
+
+Navigate to `https://cloud.ibm.com/resources` and click on `Cloud Foundry Apps` and click on `Energy Auditor`
+
+The app is live on: `https://energy-auditor.eu-gb.mybluemix.net`
+
 ## Modules
 
 * Welcome/Home
@@ -76,7 +97,7 @@
         └── requirements.txt
 ```
 
-      
+
 * `IBM-Hack-2019/src/` directory contains the source code for the application.
 * `IBM-Hack-2019/src/greenticks` directory contains the source code for the main application.
 * `IBM-Hack-2019/src/greenticks/settings/base.py` contains the base settings for the application.
