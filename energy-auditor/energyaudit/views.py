@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'home/index.html')
 
 def register(request):
     if request.method == 'POST':
@@ -21,9 +21,8 @@ def register(request):
             return redirect('index')
     else:
         form = UserCreationForm()
-        
+
     context = {
         'form': form,
     }
     return render(request, 'registration/register.html', context)
-
