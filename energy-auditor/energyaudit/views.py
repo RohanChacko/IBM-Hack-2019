@@ -5,4 +5,8 @@ from django.shortcuts import render
 
 # Sample
 def home(request):
-    return HttpResponse("Hello Blue Ticks")
+    name = "Blueticks"
+    context = {
+        "name": name,
+    }
+    return render(request, "hello_world.html", context)
