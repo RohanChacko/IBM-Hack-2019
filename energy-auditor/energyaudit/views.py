@@ -26,3 +26,7 @@ def register(request):
         'form': form,
     }
     return render(request, 'registration/register.html', context)
+
+
+def dashboard(request):
+    return render(request, 'dashboard/dashboard.html')
