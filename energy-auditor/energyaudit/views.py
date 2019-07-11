@@ -1,12 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
-# Sample
-def home(request):
-    name = "Blueticks"
+def index(request):
+    return render(request, 'index.html')
+
+def register(request):
+    form = UserCreationForm()
     context = {
-        "name": name,
+        'form': form,
     }
-    return render(request, "hello_world.html", context)
+    return render(request, 'registration/register.html', context)
+
