@@ -30,3 +30,6 @@ def register(request):
 
 def dashboard(request):
     return render(request, 'dashboard/dashboard.html')
+
+def leaderboard(request):
+    return render(request, 'dashboard/leaderboard.html')
