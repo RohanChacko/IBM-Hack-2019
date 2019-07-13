@@ -6,7 +6,12 @@ from django.contrib.auth import authenticate, login
 # Create your views here.
 
 def index(request):
-    return render(request, 'home/index.html')
+
+    context = {
+        'home_active': 'active',
+    }
+
+    return render(request, 'home/index.html', context)
 
 def register(request):
     if request.method == 'POST':
@@ -24,15 +29,38 @@ def register(request):
 
     context = {
         'form': form,
+        'register_active': 'active',
     }
-    return render(request, 'registration/register.html', context)
+    return render(request, 'home/register.html', context)
 
+def login(request):
+
+    context = {
+        'login_active': 'active',
+    }
+
+    return render(request, 'home/login.html', context)
 
 def dashboard(request):
-    return render(request, 'dashboard/dashboard.html')
+
+    context = {
+        'dashboard_active': 'active',
+    }
+
+    return render(request, 'account/dashboard.html', context)
 
 def leaderboard(request):
-    return render(request, 'dashboard/leaderboard.html')
+
+    context = {
+        'leaderboard_active': 'active',
+    }
+
+    return render(request, 'account/leaderboard.html', context)
 
 def profile(request):
-    return render(request, 'dashboard/profile.html')
+
+    context = {
+        'profile_active': 'active',
+    }
+
+    return render(request, 'account/profile.html', context)

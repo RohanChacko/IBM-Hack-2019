@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-<html lang="en">
+{% extends "account/base.html" %}
+{% load staticfiles%}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Profile | Energy Auditor</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href={% static "css/bootstrap.min.css" %}>
-  <!-- Material Design Bootstrap -->
-  <link rel="stylesheet" href={% static "css/mdb.min.css" %}>
-  <!-- Material Design Bootstrap profile page-->
-  <link rel="stylesheet" href={% static "css/admin_mdb.min.css" %}>
-  <!-- Custom styles -->
-  <link href={% static "css/dashboardstyle.min.css" %} rel="stylesheet">
-  <style>
+{% block styles %}
+
     .card.card-cascade .view.gradient-card-header {
         padding: 1.1rem 1rem;
     }
@@ -25,43 +10,8 @@
     .card.card-cascade .view {
         box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.19);
     }
-
-</style>
-</head>
-
-<body class="grey lighten-3">
-
-  <!-- Main Navigation -->
-  <header>
-
-    <!-- Sidebar -->
-    <div class="sidebar-fixed position-fixed">
-
-      <a class="logo-wrapper waves-effect">
-        <h3 class="display-5"> Hello Username </h3>
-      </a>
-
-      <div class="list-group list-group-flush">
-        <a href="/dashboard" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-chart-pie mr-3"></i>Dashboard
-        </a>
-        <a href="#" class="list-group-item active waves-effect">
-          <i class="fas fa-user mr-3"></i>Profile</a>
-        <a href="/leaderboard" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-trophy mr-3"></i>Leaderboard</a>
-        <a href="#" class="list-group-item list-group-item-action waves-effect">
-          <i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
-      </div>
-
-    </div>
-    <!-- Sidebar -->
-
-  </header>
-
-  <!-- Main layout -->
-  <main class="pt-5 mx-lg-5">
-    <div class="container-fluid">
-
+{% endblock %}
+    {% block content %}
       <!-- Heading -->
       <div class="card mb-4 wow fadeIn">
 
@@ -89,6 +39,7 @@
             <!-- Section: Basic Info -->
             <section class="card profile-card mb-4 text-center">
               <div class="avatar z-depth-1-half">
+                {% load static %}
                 <img src={% static "img/generic_avatar.jpg" %} alt="" class="img-fluid">
               </div>
               <!-- Card content -->
@@ -246,22 +197,9 @@
 
       </section>
       <!-- Section: Profile -->
+      {% endblock %}
 
-    </div>
-  </main>
-  <!-- Main layout -->
-
-  <!-- SCRIPTS -->
-  <!-- JQuery -->
-  <script src={% static "js/jquery-3.4.1.min.js" %}></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src={% static "js/popper.min.js" %}></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src={% static "js/bootstrap.js" %}></script>
-  <!-- MDB pro core JavaScript -->
-  <script type="text/javascript" src={% static "js/mdb_pro.min.js" %}></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" src={% static "js/mdb.min.js" %}></script>
+  {% block scripts %}
   <!-- Custom scripts -->
   <script>
     // Material Select Initialization
@@ -269,6 +207,4 @@
       $('.mdb-select').materialSelect();
     });
   </script>
-</body>
-
-</html>
+  {% endblock %}
