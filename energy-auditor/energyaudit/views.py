@@ -33,3 +33,6 @@ def dashboard(request):
 
 def leaderboard(request):
     return render(request, 'dashboard/leaderboard.html')
+
+def profile(request):
+    return render(request, 'dashboard/profile.html')
