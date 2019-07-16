@@ -2,6 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
+from django.views.generic import TemplateView
+
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -26,3 +30,17 @@ def register(request):
         'form': form,
     }
     return render(request, 'registration/register.html', context)
+
+class FriendSuggestions(Template):
+    template_name = "users/friend_suggestions.html"
+
+    def get(self, request):
+
+        users = User.objects.all()
+
+        context = {
+            'users' : users, 
+        }
+
+        return render(request, self.template_name, context)
+
