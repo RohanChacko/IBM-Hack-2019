@@ -1,0 +1,52 @@
+{% extends "home/base.html" %}
+
+{% block styles %}
+.card {
+background-color: rgba(215, 215, 215, 0.4);
+}
+
+.md-form label {
+color: #ffffff;
+}
+
+h6 {
+line-height: 1.7;
+}
+{% endblock %}
+
+{% block content %}
+
+<!--Grid column-->
+<div class="col-md-6 offset-md-3 col-xl-5 mb-4">
+
+  {% if form.errors %}
+  <p>There is something wrong with what you entered!</p>
+  {% endif %}
+
+  {% if next %}
+  <p>Hey, you can't access that page.</p>
+  {% endif %}
+  <!--Form-->
+  <form class="card wow" action="{% url 'login' %}" method="post">
+    <div class="card-body">
+      <!--Header-->
+      <div class="text-center">
+        <h3 class="white-text">
+          <i class="fas fa-user white-text"></i> Login</h3>
+        <hr class="hr-light">
+      </div>
+
+      {% csrf_token %}
+
+      <p>Username: {{form.username}}</p>
+      <p>Password: {{form.password}}</p>
+
+      <p><input type="submit" value="login"></p>
+      <input type="hidden" name="next" value="{{ next }}">
+    </div>
+  </form>
+  <!--/.Form-->
+</div>
+<!--Grid column-->
+
+{% endblock %}

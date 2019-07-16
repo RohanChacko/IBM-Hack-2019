@@ -10,7 +10,12 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 def index(request):
-    return render(request, 'home/index.html')
+
+    context = {
+        'home_active': 'active',
+    }
+
+    return render(request, 'home/index.html', context)
 
 def register(request):
     if request.method == 'POST':
@@ -28,8 +33,32 @@ def register(request):
 
     context = {
         'form': form,
+        'register_active': 'active',
     }
-    return render(request, 'registration/register.html', context)
+    return render(request, 'home/register.html', context)
+
+def login(request):
+
+    context = {
+        'login_active': 'active',
+    }
+
+    return render(request, 'home/login.html', context)
+
+def dashboard(request):
+
+    context = {
+        'dashboard_active': 'active',
+    }
+
+    return render(request, 'account/dashboard.html', context)
+
+def leaderboard(request):
+
+    context = {
+        'leaderboard_active': 'active',
+    }
+    return render(request, 'account/leaderboard.html', context)
 
 class FriendSuggestions(Template):
     template_name = "users/friend_suggestions.html"
@@ -44,3 +73,13 @@ class FriendSuggestions(Template):
 
         return render(request, self.template_name, context)
 
+
+    return render(request, 'account/leaderboard.html', context)
+
+def profile(request):
+
+    context = {
+        'profile_active': 'active',
+    }
+
+    return render(request, 'account/profile.html', context)

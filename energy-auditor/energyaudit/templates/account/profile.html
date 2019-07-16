@@ -1,0 +1,210 @@
+{% extends "account/base.html" %}
+{% load staticfiles%}
+
+{% block styles %}
+
+    .card.card-cascade .view.gradient-card-header {
+        padding: 1.1rem 1rem;
+    }
+
+    .card.card-cascade .view {
+        box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.19);
+    }
+{% endblock %}
+    {% block content %}
+      <!-- Heading -->
+      <div class="card mb-4 wow fadeIn">
+
+        <!--Card content-->
+        <div class="card-body d-sm-flex justify-content-between">
+
+          <h4 class="mb-2 mb-sm-0 pt-1">
+            <span>Profile</span>
+          </h4>
+
+        </div>
+
+      </div>
+      <!-- Heading -->
+
+      <!-- Section: Profile -->
+      <section>
+
+        <!-- Grid row -->
+        <div class="row mt-5">
+
+          <!-- Grid column -->
+          <div class="col-lg-4 col-md-12">
+
+            <!-- Section: Basic Info -->
+            <section class="card profile-card mb-4 text-center">
+              <div class="avatar z-depth-1-half">
+                {% load static %}
+                <img src={% static "img/generic_avatar.jpg" %} alt="" class="img-fluid">
+              </div>
+              <!-- Card content -->
+              <div class="card-body">
+                <!-- Title -->
+                <h4 class="card-title"><strong>Username</strong></h4>
+                <h5>Some interesting info. maybe rank in leaderboard</h5>
+                <p class="dark-grey-text"><i class="fas fa-map-marker-alt mr-2"></i>Location</p>
+
+                <!-- Text -->
+                <p class="card-text mt-3">Some quick example text to build on the card title and make up the bulk of
+                  the card's content.
+                </p>
+              </div>
+
+            </section>
+            <!-- Section: Basic Info -->
+
+            <!-- Section: Achievements -->
+            <section class="card mb-4">
+              <div class="card-body text-center">
+
+                <h5><strong>Username's Achievements</strong></h5>
+
+                <hr class="my-3">
+
+                <button type="button" class="btn btn-light-green btn-rounded btn-sm px-3" data-toggle="modal" data-target="#modalAchievment">Energy Saver</button>
+                <button type="button" class="btn btn-blue-grey btn-rounded btn-sm px-3" data-toggle="modal" data-target="#modalAchievment">Eco-Master</button>
+                <button type="button" class="btn btn-default btn-rounded btn-sm px-3" data-toggle="modal" data-target="#modalAchievment">Watt-House</button>
+                <button type="button" class="btn btn-secondary btn-rounded btn-sm px-3" data-toggle="modal" data-target="#modalAchievment">Green Bean</button>
+                <button type="button" class="btn btn-deep-purple btn-rounded btn-sm px-3" data-toggle="modal" data-target="#modalAchievment">Community contributor</button>
+                <button type="button" class="btn btn-indigo btn-rounded btn-sm px-3" data-toggle="modal" data-target="#modalAchievment">Audit Expert</button>
+              </div>
+            </section>
+            <!-- Section: Achievements -->
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-lg-8 col-md-12 text-center">
+
+            <!-- Card -->
+            <div class="card card-cascade narrower">
+
+              <!-- Card image -->
+              <div class="blue-gradient view view-cascade gradient-card-header">
+                <h5 class="h5-responsive mb-0 font-weight-normal">Edit Profile</h5>
+              </div>
+              <!-- Card image -->
+
+              <!-- Card content -->
+              <div class="card-body card-body-cascade text-center">
+
+                <!-- Edit Form -->
+                <form>
+                  <!-- First row -->
+
+                  <div class="row">
+
+                    <!-- First column -->
+                    <div class="col-md-6">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form1" class="form-control validate">
+                        <label for="form1" data-error="wrong" data-success="right">Username</label>
+                      </div>
+                    </div>
+                    <!-- Second column -->
+                    <div class="col-md-6">
+                      <div class="md-form mb-0">
+                        <input type="text" id="form2" class="form-control validate">
+                        <label for="form2" data-error="wrong" data-success="right">Password</label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- First row -->
+
+                  <!-- Second row -->
+                  <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                      <h4 class="mb-2 pt-1 font-weight-medium">
+                        <span>Appliances</span>
+                      </h4>
+                      <hr class="hr-dark my-1 w-25">
+                    </div>
+                  </div>
+                  <!-- Second row -->
+
+                  <!-- Third row -->
+                  <div class="row">
+                    <!-- First column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <select class="mdb-select md-form mb-4 initialized" id="select">
+                          <option value="" disabled selected>Appliance type</option>
+                          <option value="1">Air Conditioner</option>
+                          <option value="2">Heater</option>
+                          <option value="3">Washing Machine</option>
+                          <option value="4">TV</option>
+                          <option value="5">Lights</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- Second column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <select class="mdb-select md-form mb-4 initialized" id="select">
+                          <option value="" disabled selected>Appliance count</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">5</option>
+                          <option value="5">6</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- Third column -->
+                    <div class="col-md-4">
+                      <div class="md-form mb-0">
+                        <select class="mdb-select md-form mb-4 initialized" id="select">
+                          <option value="" disabled selected>Appliance power rating (Optional)</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">5</option>
+                          <option value="5">6</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Third row -->
+
+                  <!-- nth row -->
+                  <div class="row">
+                    <div class="col-md-12 text-center my-4">
+                      <input type="submit" value="Update Account" class="btn btn-info btn-rounded">
+                    </div>
+                  </div>
+
+                </form>
+                <!-- Edit Form -->
+
+              </div>
+              <!-- Card content -->
+
+            </div>
+            <!-- Card -->
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </section>
+      <!-- Section: Profile -->
+      {% endblock %}
+
+  {% block scripts %}
+  <!-- Custom scripts -->
+  <script>
+    // Material Select Initialization
+    $(document).ready(function() {
+      $('.mdb-select').materialSelect();
+    });
+  </script>
+  {% endblock %}
