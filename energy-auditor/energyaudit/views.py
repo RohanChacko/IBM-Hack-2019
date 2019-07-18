@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import ApplianceForm, MonthlyBillForm
+from .for_demo import get_disaggregation
 # Create your views here.
 
 def index(request):
