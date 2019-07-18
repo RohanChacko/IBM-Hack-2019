@@ -21,3 +21,9 @@ class Appliance(models.Model):
     name = models.CharField("Appliance",max_length=60, choices=APPLIANCES)
     quantity = models.IntegerField()
     power_rating = models.PositiveIntegerField(choices = RATING)
+
+class MonthlyBill(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    month_year = models.DateField()
+    bill_amount = models.IntegerField()
+    power_consumed = models.FloatField()

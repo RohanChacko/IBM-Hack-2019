@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import ApplianceForm
+from .forms import ApplianceForm, MonthlyBillForm
+from .for_demo import get_disaggregation
 # Create your views here.
 
 def index(request):
@@ -72,7 +73,7 @@ def login_user(request):
 
     if request.user.is_authenticated():
         return redirect('dashboard')
-        
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -116,6 +117,24 @@ def profile(request):
     }
 
     return render(request, 'account/profile.html', context)
+
+@login_required
+def add_bill(request):
+    context = {
+        'profile_active': 'active',
+        'form': MonthlyBillForm(),
+    }
+
+    if request.method == 'POST':
+        form = MonthlyBillForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.owner = request.user
+            post.save()
+            return redirect('dashboard')
+
+    return render(request, 'account/add_bill.html', context)
+
 
 
 class FriendSuggestions(TemplateView):
