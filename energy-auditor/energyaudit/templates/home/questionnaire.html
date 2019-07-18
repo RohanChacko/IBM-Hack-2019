@@ -1,0 +1,49 @@
+{% extends "home/base.html" %}
+{% block styles %}
+.card {
+background-color: rgba(215, 215, 215, 0.4);
+}
+
+.md-form label {
+color: #ffffff;
+}
+
+h6 {
+line-height: 1.7;
+}
+{% endblock %}
+
+{% block content %}
+<!--Grid column-->
+<div class="col-md-6 offset-md-3 col-xl-5 mb-4">
+  <!--Form-->
+  <form class="card wow" method="post">
+    {% csrf_token %}
+    <div class="card-body">
+      <!--Header-->
+      <div class="text-center">
+        <h3 class="white-text">
+          <i class="fas fa-lightbulb white-text"></i> Appliance Details</h3>
+        <hr class="hr-light">
+      </div>
+      {% for i in range %}
+
+        {% if form.errors %}
+        <p>There are errors in the form!</p>
+        {% endif %}
+
+        {{ form.as_p }}
+        <hr class="hr-light">
+
+      {% endfor %}
+
+      <div class="text-center mt-4">
+        <button class="btn btn-indigo" type="submit" value="register">Register</button>
+      </div>
+
+    </div>
+  </form>
+  <!--/.Form-->
+</div>
+<!--Grid column-->
+{% endblock %}

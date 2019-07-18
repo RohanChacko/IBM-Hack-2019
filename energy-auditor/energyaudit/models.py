@@ -15,9 +15,9 @@ class Appliance(models.Model):
         (5, '5 Star'),
         (6, '6 Star'),
     )
-    
+
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField("Appliance",max_length=60, choices=APPLIANCES)
     quantity = models.IntegerField()
-    power_rating = models.IntegerField(choices = RATING)
+    power_rating = models.PositiveIntegerField(choices = RATING)
