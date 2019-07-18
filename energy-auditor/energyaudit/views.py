@@ -1,11 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView
-
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -27,7 +26,7 @@ def register(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('index')
+            return redirect('dashboard')
     else:
         form = UserCreationForm()
 
@@ -37,14 +36,32 @@ def register(request):
     }
     return render(request, 'home/register.html', context)
 
-def login(request):
+def login_user(request):
 
+    username = password = ''
     context = {
-        'login_active': 'active',
+    'login_active': 'active',
     }
 
-    return render(request, 'home/login.html', context)
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
 
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('dashboard')
+
+    return render(request, 'home/login.html', context)
+        # return render_to_response('login.html', context_instance=RequestContext(request))
+
+@login_required
+def logout_user(request):
+    logout(request)
+    return redirect('index')
+
+@login_required
 def dashboard(request):
 
     context = {
@@ -53,6 +70,7 @@ def dashboard(request):
 
     return render(request, 'account/dashboard.html', context)
 
+@login_required
 def leaderboard(request):
 
     context = {
@@ -60,8 +78,7 @@ def leaderboard(request):
     }
     return render(request, 'account/leaderboard.html', context)
 
-    return render(request, 'account/leaderboard.html', context)
-
+@login_required
 def profile(request):
 
     context = {
@@ -79,7 +96,7 @@ class FriendSuggestions(TemplateView):
         users = User.objects.all()
 
         context = {
-            'users' : users, 
+            'users' : users,
         }
 
         return render(request, self.template_name, context)

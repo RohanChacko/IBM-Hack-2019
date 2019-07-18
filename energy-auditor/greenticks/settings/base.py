@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'energyaudit',
 ]
 
@@ -70,6 +71,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'greenticks.wsgi.application'
 
+# Caches
+# https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-CACHES
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -122,4 +130,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 # STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'),)
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/login'

@@ -27,7 +27,8 @@ line-height: 1.7;
   <p>Hey, you can't access that page.</p>
   {% endif %}
   <!--Form-->
-  <form class="card wow" action="{% url 'login' %}" method="post">
+  <form class="card wow" action="/login" method="post" >
+    {% csrf_token %}
     <div class="card-body">
       <!--Header-->
       <div class="text-center">
@@ -36,13 +37,22 @@ line-height: 1.7;
         <hr class="hr-light">
       </div>
 
-      {% csrf_token %}
+      <!--Stylized form for register-->
+      <!--Body-->
+      <div class="md-form">
+        <i class="fas fa-user prefix white-text active"></i>
+        <input type="text" name="username" id="form3" class="white-text form-control">
+        <label for="form3" class="active">Username</label>
+      </div>
+      <div class="md-form">
+        <i class="fas fa-lock prefix white-text active"></i>
+        <input type="password" name="password" id="form3" class="white-text form-control">
+        <label for="form3" class="active">Your password</label>
+      </div>
+      <div class="text-center mt-4">
+        <button class="btn btn-indigo" type="submit" value="register">Sign in</button>
+      </div>
 
-      <p>Username: {{form.username}}</p>
-      <p>Password: {{form.password}}</p>
-
-      <p><input type="submit" value="login"></p>
-      <input type="hidden" name="next" value="{{ next }}">
     </div>
   </form>
   <!--/.Form-->
