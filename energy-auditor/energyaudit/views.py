@@ -60,7 +60,18 @@ def leaderboard(request):
     }
     return render(request, 'account/leaderboard.html', context)
 
-class FriendSuggestions(Template):
+    return render(request, 'account/leaderboard.html', context)
+
+def profile(request):
+
+    context = {
+        'profile_active': 'active',
+    }
+
+    return render(request, 'account/profile.html', context)
+
+
+class FriendSuggestions(TemplateView):
     template_name = "users/friend_suggestions.html"
 
     def get(self, request):
@@ -72,14 +83,3 @@ class FriendSuggestions(Template):
         }
 
         return render(request, self.template_name, context)
-
-
-    return render(request, 'account/leaderboard.html', context)
-
-def profile(request):
-
-    context = {
-        'profile_active': 'active',
-    }
-
-    return render(request, 'account/profile.html', context)
