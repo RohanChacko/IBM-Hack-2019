@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import ApplianceForm
+from .forms import ApplianceForm, MonthlyBillForm
 # Create your views here.
 
 def index(request):
@@ -97,16 +97,31 @@ def query(request):
     if request.method == 'POST':
 
         form = ApplianceForm(request.POST)
-        print(request.POST)
-        print(form)
-        print(form.errors)
         if form.is_valid():
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
             return redirect('dashboard')
-            
+
     return render(request, 'account/query.html', context)
+
+@login_required
+def add_bill(request):
+    context = {
+        'profile_active': 'active',
+        'form': MonthlyBillForm(),
+    }
+
+    if request.method == 'POST':
+        form = MonthlyBillForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.owner = request.user
+            post.save()
+            return redirect('dashboard')
+
+    return render(request, 'account/add_bill.html', context)
+
 
 
 class FriendSuggestions(TemplateView):
