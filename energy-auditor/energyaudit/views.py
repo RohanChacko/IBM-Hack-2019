@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import ApplianceForm, MonthlyBillForm
-from .for_demo import get_disaggregation
+# from .for_demo import get_disaggregation
 # Create your views here.
 
 def index(request):
@@ -14,12 +14,14 @@ def index(request):
     context = {
         'home_active': 'active',
     }
-
-    return render(request, 'home/index.html', context)
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    else:
+        return render(request, 'home/index.html', context)
 
 def register(request):
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect('dashboard')
 
     if request.method == 'POST':
@@ -71,7 +73,7 @@ def login_user(request):
     'login_active': 'active',
     }
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect('dashboard')
 
     if request.method == 'POST':
@@ -121,7 +123,7 @@ def profile(request):
 @login_required
 def add_bill(request):
     context = {
-        'profile_active': 'active',
+        'monthlybill_active': 'active',
         'form': MonthlyBillForm(),
     }
 
