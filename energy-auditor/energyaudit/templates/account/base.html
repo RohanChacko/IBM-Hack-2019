@@ -19,8 +19,7 @@
   <!-- Custom styles -->
   {% load static %}
   <link href={% static "css/dashboardstyle.min.css" %} rel="stylesheet">
-  {% load static %}
-  <link href={% static "css/admin_mdb.min.css" %} rel="stylesheet">
+  {% block css %}{% endblock %}
   <style>
     {% block styles %}{% endblock %}
   </style>
