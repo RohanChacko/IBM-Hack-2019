@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import ApplianceForm, MonthlyBillForm
+from .forms import ApplianceForm, MonthlyBillForm, UserLocationForm
 # from .for_demo import get_disaggregation
 # Create your views here.
 
@@ -136,6 +136,23 @@ def add_bill(request):
             return redirect('dashboard')
 
     return render(request, 'account/add_bill.html', context)
+
+@login_required
+def add_addr(request):
+    context = {
+        'monthlybill_active': 'active',
+        'form': UserLocationForm(),
+    }
+
+    if request.method == 'POST':
+        form = UserLocationForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.owner = request.user
+            post.save()
+            return redirect('dashboard')
+
+    return render(request, 'account/add_addr.html', context)
 
 
 

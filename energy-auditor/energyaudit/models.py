@@ -19,11 +19,22 @@ class Appliance(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField("Appliance",max_length=60, choices=APPLIANCES)
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField()
     power_rating = models.PositiveIntegerField(choices = RATING)
 
 class MonthlyBill(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     month_year = models.DateField()
-    bill_amount = models.IntegerField()
+    bill_amount = models.PositiveIntegerField()
     power_consumed = models.FloatField()
+
+class UserLocation(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    building = models.CharField("Building",max_length=60)
+    street = models.CharField("Street Address",max_length=60)
+    city = models.CharField("City",max_length=60)
+    state = models.CharField("State",max_length=60)
+    pincode = models.IntegerField(choices=[(i, i) for i in range(100001, 999999)], blank=True)
+    
+    num_room = models.PositiveIntegerField("Number of Rooms")
+    area = models.PositiveIntegerField("Area (Square Feet)")
