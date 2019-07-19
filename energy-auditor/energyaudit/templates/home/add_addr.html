@@ -1,0 +1,46 @@
+{% extends "home/base.html" %}
+{% block styles %}
+.card {
+background-color: rgba(215, 215, 215, 0.4);
+}
+
+.md-form label {
+color: #ffffff;
+}
+
+h6 {
+line-height: 1.7;
+}
+
+#id_month_year_day {
+display: none;
+}
+
+{% endblock %}
+
+{% block content %}
+<!--Grid column-->
+<div class="col-md-6 offset-md-3 col-xl-5 mb-4">
+	<!--Form-->
+	<form class="card wow" method="post">
+		{% csrf_token %}
+		<div class="card-body">
+			<!--Header-->
+			<div class="text-center">
+				<h3 class="white-text">
+					<i class="fas fa-user-edit white-text"></i> User Details</h3>
+				<hr class="hr-light">
+			</div>
+
+			{{ form.as_p }}
+
+			<div class="text-center mt-4">
+				<button class="btn btn-indigo" type="submit" value="register">Register</button>
+			</div>
+
+		</div>
+	</form>
+	<!--/.Form-->
+</div>
+<!--Grid column-->
+{% endblock %}

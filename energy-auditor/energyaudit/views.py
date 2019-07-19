@@ -61,7 +61,7 @@ def register_details(request):
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-            return redirect('dashboard')
+            return redirect('add_addr')
 
     else:
         return render(request, 'home/questionnaire.html', context)
@@ -140,7 +140,7 @@ def add_bill(request):
 @login_required
 def add_addr(request):
     context = {
-        'monthlybill_active': 'active',
+        'register_active': 'active',
         'form': UserLocationForm(),
     }
 
@@ -152,7 +152,7 @@ def add_addr(request):
             post.save()
             return redirect('dashboard')
 
-    return render(request, 'account/add_addr.html', context)
+    return render(request, 'home/add_addr.html', context)
 
 
 
