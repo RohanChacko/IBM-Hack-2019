@@ -11,10 +11,12 @@ from datetime import datetime
 import h5py, tables, numpy as np
 
 def get_disaggregation(device, total_aggregate):
+	# Devices with high energy usage are primarily considered
 	devices = ["fridge", "air conditioner", "washing machine"]
 	if device not in devices:
 		return None
 
+	# Counting number of seconds in a month of 30 days
 	total_seconds = 30*24*60*60
 	val_per_second = float(total_aggregate)/total_seconds
 
