@@ -28,4 +28,7 @@ class MonthlyBill(models.Model):
     bill_amount = models.IntegerField()
     power_consumed = models.FloatField()
 
+class Friend(models.Model):
+    users = models.ManyToManyField(User)
+
     

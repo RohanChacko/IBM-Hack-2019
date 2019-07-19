@@ -80,7 +80,12 @@ def leaderboard(request):
     return render(request, 'account/leaderboard.html', context)
 
 @login_required
-def profile(request):
+def profile(request, pk=None):
+
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
 
     context = {
         'profile_active': 'active',
@@ -130,7 +135,7 @@ class FriendSuggestions(TemplateView):
 
     def get(self, request):
 
-        users = User.objects.all()
+        users = User.objects.exclude(id=request.user.id)
 
         context = {
             'users' : users,

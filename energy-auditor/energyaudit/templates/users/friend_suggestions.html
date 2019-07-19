@@ -7,6 +7,7 @@
 <body>
     <h1>Other Users</h1>
     {% for user in users %}
+    <a href="{% url 'energyaudit:profile_with_pk' pk=user.pk %}"></a>
         {{user.username}}
     {% endfor %}
 </body>

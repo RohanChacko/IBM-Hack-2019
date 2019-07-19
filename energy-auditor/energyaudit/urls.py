@@ -10,7 +10,7 @@ urlpatterns = [
     path('leaderboard', views.leaderboard, name='leaderboard'),
     path('query', views.query, name='query'),
     path('add_bill', views.add_bill, name='add_bill'),
-    path('profile', views.profile, name='profile'),
-    path('profile', views.profile, name='profile_with_pk'),
+    path(r'^profile/$', views.profile, name='profile'),
+    path(r'^profile/(?P<pk>\d+)/$', views.profile, name='profile_with_pk'),
     path('friendsuggestions', views.FriendSuggestions.as_view(), name='friendsuggestions')
 ]
