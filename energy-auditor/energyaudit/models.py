@@ -34,7 +34,7 @@ class UserLocation(models.Model):
     street = models.CharField("Street Address",max_length=60)
     city = models.CharField("City",max_length=60)
     state = models.CharField("State",max_length=60)
-    pincode = models.IntegerField(choices=[(i, i) for i in range(100001, 999999)], blank=True)
+    pincode = models.PositiveIntegerField()
     
     num_room = models.PositiveIntegerField("Number of Rooms")
     area = models.PositiveIntegerField("Area (Square Feet)")
