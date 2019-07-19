@@ -59,15 +59,18 @@ The app is live on: `https://energy-auditor.eu-gb.mybluemix.net`
 
 | Checkbox  | Task                                                  | Assigned |
 | :-------: | :---------                                            | :------: |
-| &#9744;   | Set up basic infrastructure                           | Aadil    |
-| &#9744;   | Scrap data for training model                         | Zubair, Athreya, Chacko |
-| &#9744;   | Train the model and deploy                            | Zubair, Athreya, Chacko |
-| &#9744;   | Integrate NILMTK into the app                         | Athreya  |
-| &#9744;   | Set up user authentication (OAuth or custom)          | Anyone   |
+| &#9744;   | Gamification/Achievements                             | Anyone   |
+| &#9744;   | UI Dashboard                                          | Anyone   |
+| &#9744;   | Reccomender System based on location                  | Anyone   |
 | &#9744;   | Integrate Watson APIs into the app                    | Anyone   |
-| &#9744;   | Choose database location for storage (cloud/storage)  | Anyone   |
 | &#9744;   | Get user's friends (and/or) aggregate people based on location vicinity for leaderboard. If going with friends, need to find a way to get user's friends info. If going with people in vicinity, need to get vicinity information                                                         | Anyone   |
 | &#9744;   | Documentation (README, ppt, code comments, video)     | EVERYONE |
+| &#9745;   | Set up basic infrastructure                           | Aadil    |
+| &#9745;   | Choose database location for storage (cloud/storage)  | Anyone   |
+| &#9745;   | Scrap data for training model                         | Zubair, Athreya, Chacko |
+| &#9745;   | Train the model and deploy                            | Zubair, Athreya, Chacko |
+| &#9745;   | Integrate NILMTK into the app                         | Athreya  |
+| &#9745;   | Set up user authentication (OAuth or custom)          | Anyone   |
 
 ## Other details
 
