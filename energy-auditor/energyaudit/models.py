@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here
 class Appliance(models.Model):
     APPLIANCES = (
@@ -17,11 +18,11 @@ class Appliance(models.Model):
         (5, '5 Star'),
     )
 
-
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField("Appliance",max_length=60, choices=APPLIANCES)
+    name = models.CharField("Appliance", max_length=60, choices=APPLIANCES)
     quantity = models.PositiveIntegerField(default=1)
-    power_rating = models.PositiveIntegerField(choices = RATING)
+    power_rating = models.PositiveIntegerField(choices=RATING)
+
 
 class MonthlyBill(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)

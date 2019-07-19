@@ -9,6 +9,7 @@ from .forms import ApplianceForm, MonthlyBillForm
 # from .for_demo import get_disaggregation
 # Create your views here.
 
+
 def index(request):
 
     context = {
@@ -18,6 +19,7 @@ def index(request):
         return redirect('dashboard')
     else:
         return render(request, 'home/index.html', context)
+
 
 def register(request):
 
@@ -45,12 +47,13 @@ def register(request):
     }
     return render(request, 'home/register.html', context)
 
+
 @login_required
 def register_details(request):
     context = {
-    'register_active': 'active',
-    'range': range(3),
-    'form': ApplianceForm(),
+        'register_active': 'active',
+        'range': range(3),
+        'form': ApplianceForm(),
     }
 
     if request.method == 'POST':
@@ -66,11 +69,12 @@ def register_details(request):
     else:
         return render(request, 'home/questionnaire.html', context)
 
+
 def login_user(request):
 
     username = password = ''
     context = {
-    'login_active': 'active',
+        'login_active': 'active',
     }
 
     if request.user.is_authenticated:
@@ -87,12 +91,15 @@ def login_user(request):
                 return redirect('dashboard')
 
     return render(request, 'home/login.html', context)
-    # return render_to_response('login.html', context_instance=RequestContext(request))
+    # return render_to_response('login.html',
+    #  context_instance=RequestContext(request))
+
 
 @login_required
 def logout_user(request):
     logout(request)
     return redirect('index')
+
 
 @login_required
 def dashboard(request):
@@ -103,6 +110,7 @@ def dashboard(request):
 
     return render(request, 'account/dashboard.html', context)
 
+
 @login_required
 def leaderboard(request):
 
@@ -110,6 +118,7 @@ def leaderboard(request):
         'leaderboard_active': 'active',
     }
     return render(request, 'account/leaderboard.html', context)
+
 
 @login_required
 def profile(request):
@@ -119,6 +128,7 @@ def profile(request):
     }
 
     return render(request, 'account/profile.html', context)
+
 
 @login_required
 def add_bill(request):
@@ -138,7 +148,6 @@ def add_bill(request):
     return render(request, 'account/add_bill.html', context)
 
 
-
 class FriendSuggestions(TemplateView):
     template_name = "users/friend_suggestions.html"
 
@@ -147,7 +156,7 @@ class FriendSuggestions(TemplateView):
         users = User.objects.all()
 
         context = {
-            'users' : users,
+            'users': users,
         }
 
         return render(request, self.template_name, context)

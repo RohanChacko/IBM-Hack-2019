@@ -20,6 +20,7 @@ from nilmtk.feature_detectors import cluster
 from nilmtk.disaggregate import Disaggregator
 from nilmtk.datastore import HDFDataStore
 
+
 class ShortSeq2PointDisaggregator(Disaggregator):
     '''Attempt to create a RNN Disaggregator
 
@@ -60,7 +61,7 @@ class ShortSeq2PointDisaggregator(Disaggregator):
         run = True
         mainchunk = next(main_power_series)
         meterchunk = next(meter_power_series)
-        if self.mmax == None:
+        if self.mmax is None:
             self.mmax = mainchunk.max()
 
         while(run):
@@ -92,26 +93,33 @@ class ShortSeq2PointDisaggregator(Disaggregator):
         mainchunk = np.array(mainchunk[ix])
         meterchunk = np.array(meterchunk[ix])
 
-        indexer = np.arange(self.window_size)[None, :] + np.arange(len(mainchunk)-self.window_size+1)[:, None]
+        indexer = np.arange(self.window_size)[
+            None, :] + np.arange(len(mainchunk)-self.window_size+1)[:, None]
         mainchunk = mainchunk[indexer]
         meterchunk = meterchunk[self.window_size-1:]
-        mainchunk = np.reshape(mainchunk, (mainchunk.shape[0], mainchunk.shape[1],1))
+        mainchunk = np.reshape(
+            mainchunk, (mainchunk.shape[0], mainchunk.shape[1], 1))
 
-        self.model.fit(mainchunk, meterchunk, epochs=epochs, batch_size=batch_size, shuffle=True)
+        self.model.fit(mainchunk, meterchunk, epochs=epochs,
+                       batch_size=batch_size, shuffle=True)
 
-    def train_across_buildings(self, mainlist, meterlist, epochs=1, batch_size=128, **load_kwargs):
+    def train_across_buildings(self, mainlist, meterlist, epochs=1,
+                               batch_size=128, **load_kwargs):
         '''Train using data from multiple buildings
 
         Parameters
         ----------
-        mainlist : a list of nilmtk.ElecMeter objects for the aggregate data of each building
-        meterlist : a list of nilmtk.ElecMeter objects for the meter data of each building
+        mainlist : a list of nilmtk.ElecMeter objects for the aggregate data
+        of each building
+        meterlist : a list of nilmtk.ElecMeter objects for the meter data of
+        each building
         batch_size : size of batch used for training
         epochs : number of epochs to train
         **load_kwargs : keyword arguments passed to `meter.power_series()`
         '''
 
-        assert len(mainlist) == len(meterlist), "Number of main and meter channels should be equal"
+        assert len(mainlist) == len(
+            meterlist), "Number of main and meter channels should be equal"
         num_meters = len(mainlist)
 
         mainps = [None] * num_meters
@@ -120,19 +128,18 @@ class ShortSeq2PointDisaggregator(Disaggregator):
         meterchunks = [None] * num_meters
 
         # Get generators of timeseries
-        for i,m in enumerate(mainlist):
+        for i, m in enumerate(mainlist):
             mainps[i] = m.power_series(**load_kwargs)
 
-        for i,m in enumerate(meterlist):
+        for i, m in enumerate(meterlist):
             meterps[i] = m.power_series(**load_kwargs)
 
         # Get a chunk of data
         for i in range(num_meters):
             mainchunks[i] = next(mainps[i])
             meterchunks[i] = next(meterps[i])
-        if self.mmax == None:
+        if self.mmax is None:
             self.mmax = max([m.max() for m in mainchunks])
-
 
         run = True
         while(run):
@@ -140,7 +147,8 @@ class ShortSeq2PointDisaggregator(Disaggregator):
             mainchunks = [self._normalize(m, self.mmax) for m in mainchunks]
             meterchunks = [self._normalize(m, self.mmax) for m in meterchunks]
 
-            self.train_across_buildings_chunk(mainchunks, meterchunks, epochs, batch_size)
+            self.train_across_buildings_chunk(
+                mainchunks, meterchunks, epochs, batch_size)
 
             # If more chunks, repeat
             try:
@@ -150,7 +158,8 @@ class ShortSeq2PointDisaggregator(Disaggregator):
             except:
                 run = False
 
-    def train_across_buildings_chunk(self, mainchunks, meterchunks, epochs, batch_size):
+    def train_across_buildings_chunk(self, mainchunks, meterchunks,
+                                     epochs, batch_size):
         '''Train using only one chunk of data. This chunk consists of data from
         all buildings.
 
@@ -175,21 +184,25 @@ class ShortSeq2PointDisaggregator(Disaggregator):
             mainchunks[i] = m1[ix]
             meterchunks[i] = m2[ix]
 
-            indexer = np.arange(self.window_size)[None, :] + np.arange(len(mainchunks[i].values)-self.window_size+1)[:, None]
+            indexer = np.arange(self.window_size)[
+                None, :] + np.arange(
+                    len(mainchunks[i].values)-self.window_size+1)[:, None]
             mainchunks[i] = mainchunks[i].values[indexer]
             meterchunks[i] = meterchunks[i].values[self.window_size-1:]
 
             num_of_batches[i] = int(len(ix)/batch_size) - 1
 
-        for e in range(epochs): # Iterate for every epoch
+        for e in range(epochs):  # Iterate for every epoch
             print(e)
             batch_indexes = list(range(min(num_of_batches)))
             random.shuffle(batch_indexes)
 
-            for bi, b in enumerate(batch_indexes): # Iterate for every batch
-                print("Batch {} of {}".format(bi,min(num_of_batches)), end="\r")
+            for bi, b in enumerate(batch_indexes):  # Iterate for every batch
+                print("Batch {} of {}".format(
+                    bi, min(num_of_batches)), end="\r")
                 sys.stdout.flush()
-                X_batch = np.empty((batch_size*num_meters, self.window_size, 1))
+                X_batch = np.empty(
+                    (batch_size*num_meters, self.window_size, 1))
                 Y_batch = np.empty((batch_size*num_meters, 1))
 
                 # Create a batch out of data from all buildings
@@ -212,13 +225,15 @@ class ShortSeq2PointDisaggregator(Disaggregator):
                 self.model.train_on_batch(X_batch, Y_batch)
             print("\n")
 
-    def disaggregate(self, mains, output_datastore, meter_metadata, **load_kwargs):
+    def disaggregate(self, mains, output_datastore, meter_metadata,
+                     **load_kwargs):
         '''Disaggregate mains according to the model learnt previously.
 
         Parameters
         ----------
         mains : a nilmtk.ElecMeter of aggregate data
-        meter_metadata: a nilmtk.ElecMeter of the observed meter used for storing the metadata
+        meter_metadata: a nilmtk.ElecMeter of the observed meter used
+        for storing the metadata
         output_datastore : instance of nilmtk.DataStore subclass
             For storing power predictions from disaggregation algorithm.
         **load_kwargs : key word arguments
@@ -291,13 +306,15 @@ class ShortSeq2PointDisaggregator(Disaggregator):
 
         X_batch = np.array(mains)
         Y_len = len(X_batch)
-        indexer = np.arange(self.window_size)[None, :] + np.arange(len(X_batch)-self.window_size+1)[:, None]
+        indexer = np.arange(self.window_size)[
+            None, :] + np.arange(len(X_batch)-self.window_size+1)[:, None]
         X_batch = X_batch[indexer]
-        X_batch = np.reshape(X_batch, (X_batch.shape[0],X_batch.shape[1],1))
+        X_batch = np.reshape(X_batch, (X_batch.shape[0], X_batch.shape[1], 1))
 
         pred = self.model.predict(X_batch, batch_size=128)
         pred = np.reshape(pred, (len(pred)))
-        column = pd.Series(pred, index=mains.index[self.window_size-1:Y_len], name=0)
+        column = pd.Series(
+            pred, index=mains.index[self.window_size-1:Y_len], name=0)
 
         appliance_powers_dict = {}
         appliance_powers_dict[0] = column
@@ -328,7 +345,7 @@ class ShortSeq2PointDisaggregator(Disaggregator):
         self.model.save(filename)
         with h5py.File(filename, 'a') as hf:
             gr = hf.create_group('disaggregator-data')
-            gr.create_dataset('mmax', data = [self.mmax])
+            gr.create_dataset('mmax', data=[self.mmax])
 
     def _normalize(self, chunk, mmax):
         '''Normalizes timeseries
@@ -364,7 +381,8 @@ class ShortSeq2PointDisaggregator(Disaggregator):
         model = Sequential()
 
         # 1D Conv
-        model.add(Conv1D(30, 10, activation='relu', input_shape=(self.window_size,1), padding="same", strides=1))
+        model.add(Conv1D(30, 10, activation='relu', input_shape=(
+            self.window_size, 1), padding="same", strides=1))
         model.add(Dropout(0.5))
         model.add(Conv1D(30, 8, activation='relu', padding="same", strides=1))
         model.add(Dropout(0.5))
@@ -373,7 +391,7 @@ class ShortSeq2PointDisaggregator(Disaggregator):
         model.add(Conv1D(50, 5, activation='relu', padding="same", strides=1))
         model.add(Dropout(0.5))
         model.add(Conv1D(50, 5, activation='relu', padding="same", strides=1))
-        model.add(Dropout(0.5))        
+        model.add(Dropout(0.5))
         # Fully Connected Layers
         model.add(Flatten())
         model.add(Dense(1024, activation='relu'))
