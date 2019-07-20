@@ -12,6 +12,7 @@ from .predictapi import get_disaggregation
 
 # Create your views here.
 
+
 def index(request):
 
     context = {
@@ -21,6 +22,7 @@ def index(request):
         return redirect('dashboard')
     else:
         return render(request, 'home/index.html', context)
+
 
 def register(request):
 
@@ -48,12 +50,13 @@ def register(request):
     }
     return render(request, 'home/register.html', context)
 
+
 @login_required
 def register_details(request):
     context = {
-    'register_active': 'active',
-    'range': range(3),
-    'form': ApplianceForm(),
+        'register_active': 'active',
+        'range': range(3),
+        'form': ApplianceForm(),
     }
 
     if request.method == 'POST':
@@ -69,12 +72,13 @@ def register_details(request):
     else:
         return render(request, 'home/questionnaire.html', context)
 
+
 def login_user(request):
 
     username = password = ''
 
     context = {
-    'login_active': 'active',
+        'login_active': 'active',
     }
 
     if request.user.is_authenticated:
@@ -92,10 +96,12 @@ def login_user(request):
 
     return render(request, 'home/login.html', context)
 
+
 @login_required
 def logout_user(request):
     logout(request)
     return redirect('index')
+
 
 @login_required
 def dashboard(request):
@@ -104,6 +110,7 @@ def dashboard(request):
     context['dashboard_active'] = 'active'
 
     return render(request, 'account/dashboard.html', context)
+
 
 @login_required
 def leaderboard(request, pk=None):
@@ -114,19 +121,20 @@ def leaderboard(request, pk=None):
         user = request.user
 
     users = User.objects.exclude(id=request.user.id)
-    location = UserLocation.objects.exclude(owner=request.user).values('city', 'state').all()
+    location = UserLocation.objects.exclude(
+        owner=request.user).values('city', 'state').all()
 
     context = {
         'leaderboard_active': 'active',
-        'users' : users,
+        'users': users,
         'location': location,
     }
 
     return render(request, 'account/leaderboard.html', context)
 
+
 @login_required
 def profile(request, pk=None):
-
 
     if pk:
         user = User.objects.get(pk=pk)
@@ -134,7 +142,8 @@ def profile(request, pk=None):
     else:
         user = request.user
 
-    location = UserLocation.objects.filter(owner=request.user).values('building', 'street', 'city', 'state')
+    location = UserLocation.objects.filter(owner=request.user).values(
+        'building', 'street', 'city', 'state')
 
     context = {
         'profile_active': 'active',
@@ -143,6 +152,7 @@ def profile(request, pk=None):
     }
 
     return render(request, 'account/profile.html', context)
+
 
 @login_required
 def add_bill(request):
@@ -160,6 +170,7 @@ def add_bill(request):
             return redirect('dashboard')
 
     return render(request, 'account/add_bill.html', context)
+
 
 @login_required
 def add_appl(request):
@@ -200,14 +211,15 @@ def add_addr(request):
 def dashboard_analytics(request):
 
     try:
-        monthly_bills = MonthlyBill.objects.filter(owner=request.user).order_by('-month_year')[:12]
+        monthly_bills = MonthlyBill.objects.filter(
+            owner=request.user).order_by('-month_year')[:12]
     except Exception as e:
         print(e)
         return redirect('dashboard')
 
-
     try:
-        appliances = Appliance.objects.filter(owner=request.user).values('name').annotate(qty=Sum('quantity')).all()
+        appliances = Appliance.objects.filter(owner=request.user).values(
+            'name').annotate(qty=Sum('quantity')).all()
     except Exception as e:
         print(e)
         return redirect('dashboard')
@@ -215,7 +227,8 @@ def dashboard_analytics(request):
     total_aggr = monthly_bills.first()
     print(total_aggr.power_consumed)
     # total_aggr.power_consumed
-    disag = DisaggregationResults.objects.filter(total_aggregate = 12345.0).first()
+    disag = DisaggregationResults.objects.filter(
+        total_aggregate=12345.0).first()
     if disag is None:
         pass
         # Call the model and store the results back
@@ -231,7 +244,7 @@ def dashboard_analytics(request):
 
     context = {
         'bills': monthly_bills,
-        'appliances':appl_dict,
+        'appliances': appl_dict,
     }
 
     return context

@@ -14,5 +14,6 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('profile/<int:pk>', views.profile, name='profile_with_pk'),
     path('add_addr', views.add_addr, name='add_addr'),
-    # path('friendsuggestions', views.FriendSuggestions.as_view(), name='friendsuggestions')
+    # path('friendsuggestions', views.FriendSuggestions.as_view(),
+    #  name='friendsuggestions')
 ]
