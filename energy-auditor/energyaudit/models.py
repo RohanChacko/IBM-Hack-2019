@@ -28,11 +28,9 @@ class MonthlyBill(models.Model):
     bill_amount = models.PositiveIntegerField()
     power_consumed = models.FloatField()
 
-<<<<<<< HEAD
 class Friend(models.Model):
     users = models.ManyToManyField(User)
 
-=======
 class UserLocation(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     building = models.CharField("Building",max_length=60)
@@ -40,7 +38,6 @@ class UserLocation(models.Model):
     city = models.CharField("City",max_length=60)
     state = models.CharField("State",max_length=60)
     pincode = models.PositiveIntegerField()
->>>>>>> 42fd9a9317716784a418da8a588c7676463c5898
     
     num_room = models.PositiveIntegerField("Number of Rooms")
     area = models.PositiveIntegerField("Area (Square Feet)")
