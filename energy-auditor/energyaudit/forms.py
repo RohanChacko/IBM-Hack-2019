@@ -1,5 +1,5 @@
 from django.forms import ModelForm,SelectDateWidget,Select
-from .models import Appliance, MonthlyBill
+from .models import Appliance, MonthlyBill, UserLocation
 
 
 class ApplianceForm(ModelForm):
@@ -17,3 +17,10 @@ class MonthlyBillForm(ModelForm):
             'month_year': SelectDateWidget(years = ['2018','2019']),
         }
 
+
+class UserLocationForm(ModelForm):
+
+	class Meta:
+		model = UserLocation
+		exclude = ('owner',)
+		

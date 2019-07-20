@@ -17,7 +17,8 @@ line-height: 1.7;
 <!--Grid column-->
 <div class="col-md-6 offset-md-3 col-xl-5 mb-4">
   <!--Form-->
-  <form class="card wow">
+  <form class="card wow" method="post">
+    {% csrf_token %}
     <div class="card-body">
       <!--Header-->
       <div class="text-center">
@@ -55,6 +56,10 @@ line-height: 1.7;
       {% endif %}
 
       {{ form }}
+
+      <div class="text-center mt-4">
+        <button class="btn btn-indigo" type="submit" value="register">Sign up</button>
+      </div>
 
     </div>
   </form>

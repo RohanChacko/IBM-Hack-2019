@@ -15,20 +15,32 @@ class Appliance(models.Model):
         (5, '5 Star'),
         (6, '6 Star'),
     )
-    
+
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField("Appliance",max_length=60, choices=APPLIANCES)
-    quantity = models.IntegerField()
-    power_rating = models.IntegerField(choices = RATING)
+    quantity = models.PositiveIntegerField()
+    power_rating = models.PositiveIntegerField(choices = RATING)
 
 class MonthlyBill(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     month_year = models.DateField()
-    bill_amount = models.IntegerField()
+    bill_amount = models.PositiveIntegerField()
     power_consumed = models.FloatField()
 
+<<<<<<< HEAD
 class Friend(models.Model):
     users = models.ManyToManyField(User)
 
+=======
+class UserLocation(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    building = models.CharField("Building",max_length=60)
+    street = models.CharField("Street Address",max_length=60)
+    city = models.CharField("City",max_length=60)
+    state = models.CharField("State",max_length=60)
+    pincode = models.PositiveIntegerField()
+>>>>>>> 42fd9a9317716784a418da8a588c7676463c5898
     
+    num_room = models.PositiveIntegerField("Number of Rooms")
+    area = models.PositiveIntegerField("Area (Square Feet)")
