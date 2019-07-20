@@ -5,7 +5,7 @@ from matplotlib import rcParams
 import matplotlib.pyplot as plt
 
 from nilmtk import DataSet, TimeFrame, MeterGroup, HDFDataStore
-from shortseq2pointdisaggregator import ShortSeq2PointDisaggregator
+from .shortseq2pointdisaggregator import ShortSeq2PointDisaggregator
 
 from datetime import datetime
 import h5py, tables, numpy as np
