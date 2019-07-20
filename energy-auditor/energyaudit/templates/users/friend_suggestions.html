@@ -7,7 +7,9 @@
 <body>
     <h1>Other Users</h1>
     {% for user in users %}
+    <a href="{% url 'profile_with_pk' pk=user.pk %}">
         {{user.username}}
+    </a>
     {% endfor %}
 </body>
 </html>

@@ -64,7 +64,7 @@ def register_details(request):
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-            return redirect('dashboard')
+            return redirect('add_addr')
 
     else:
         return render(request, 'home/questionnaire.html', context)
@@ -115,10 +115,18 @@ def leaderboard(request):
     return render(request, 'account/leaderboard.html', context)
 
 @login_required
-def profile(request):
+def profile(request, pk=None):
+    print(pk)
+
+    if pk:
+        user = User.objects.get(pk=pk)
+        print(user.username)
+    else:
+        user = request.user
 
     context = {
         'profile_active': 'active',
+        'user': user
     }
 
     return render(request, 'account/profile.html', context)
@@ -161,7 +169,7 @@ def add_appl(request):
 @login_required
 def add_addr(request):
     context = {
-        'monthlybill_active': 'active',
+        'register_active': 'active',
         'form': UserLocationForm(),
     }
 
@@ -173,7 +181,7 @@ def add_addr(request):
             post.save()
             return redirect('dashboard')
 
-    return render(request, 'account/add_addr.html', context)
+    return render(request, 'home/add_addr.html', context)
 
 
 @login_required
@@ -224,7 +232,7 @@ class FriendSuggestions(TemplateView):
 
     def get(self, request):
 
-        users = User.objects.all()
+        users = User.objects.exclude(id=request.user.id)
 
         context = {
             'users' : users,
