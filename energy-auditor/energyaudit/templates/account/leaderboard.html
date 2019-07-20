@@ -60,8 +60,9 @@ bottom: .5em;
               </a>
             </td>
             {% for loc in location %}
-              <td>{{ loc.city }}, {{loc.state }}</td>
+              <td>{{ loc.city }}, {{ loc.state }}</td>
             {% endfor %}
+            
             <td>{{user.rank}}</td>
             <td>{{user.energy_saved}}</td>
           </tr>

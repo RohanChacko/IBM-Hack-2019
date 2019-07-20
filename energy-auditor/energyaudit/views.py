@@ -52,16 +52,30 @@ def register(request):
 def register_details(request):
     context = {
     'register_active': 'active',
-    'range': range(3),
-    'form': ApplianceForm(),
+    'form_fridge': ApplianceForm(prefix='fridge'),
+    'form_ac': ApplianceForm(prefix='ac'),
+    'form_washingmachine': ApplianceForm(prefix='washingmachine'),
     }
 
     if request.method == 'POST':
 
-        form = ApplianceForm(request.POST)
+        form_fridge = ApplianceForm(request.POST, prefix='fridge')
+        form_ac = ApplianceForm(request.POST, prefix='ac')
+        form_washingmachine = ApplianceForm(request.POST, prefix='washingmachine')
 
-        if form.is_valid():
-            post = form.save(commit=False)
+        if form_fridge.is_valid():
+            post = form_fridge.save(commit=False)
+            post.owner = request.user
+            post.save()
+
+        if form_ac.is_valid():
+            post = form_ac.save(commit=False)
+            post.owner = request.user
+            post.save()
+
+
+        if form_washingmachine.is_valid():
+            post = form_washingmachine.save(commit=False)
             post.owner = request.user
             post.save()
             return redirect('add_addr')
@@ -98,9 +112,12 @@ def logout_user(request):
     return redirect('index')
 
 @login_required
-def dashboard(request):
+def dashboard(request, new=None):
 
-    context = dashboard_analytics(request)
+    context = {}
+
+    if new is None:
+        context = dashboard_analytics(request)
     context['dashboard_active'] = 'active'
 
     return render(request, 'account/dashboard.html', context)
@@ -157,7 +174,7 @@ def add_bill(request):
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-            return redirect('dashboard')
+            return redirect('add_bill')
 
     return render(request, 'account/add_bill.html', context)
 
@@ -201,10 +218,17 @@ def dashboard_analytics(request):
 
     try:
         monthly_bills = MonthlyBill.objects.filter(owner=request.user).order_by('-month_year')[:12]
+        print(monthly_bills)
+    except Exception as e:
+        print(e)
+        return redirect('dashboard', new=True)
+
+    try:
+        friends_monthly_bills = MonthlyBill.objects.exclude(owner=request.user).order_by('-month_year')[:12]
+        print(friends_monthly_bills)
     except Exception as e:
         print(e)
         return redirect('dashboard')
-
 
     try:
         appliances = Appliance.objects.filter(owner=request.user).values('name').annotate(qty=Sum('quantity')).all()
@@ -216,6 +240,7 @@ def dashboard_analytics(request):
     print(total_aggr.power_consumed)
     # total_aggr.power_consumed
     disag = DisaggregationResults.objects.filter(total_aggregate = 12345.0).first()
+
     if disag is None:
         pass
         # Call the model and store the results back
@@ -231,6 +256,7 @@ def dashboard_analytics(request):
 
     context = {
         'bills': monthly_bills,
+        'friends_bills': friends_monthly_bills,
         'appliances':appl_dict,
     }
 

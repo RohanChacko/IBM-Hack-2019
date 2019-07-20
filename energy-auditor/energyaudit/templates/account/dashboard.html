@@ -963,13 +963,29 @@ position:absolute;
   });
 
   //line
+  data = [];
+  friend_data = [];
+
+  {% for bill in bills %}
+       data.push({{ bill.power_consumed }});
+  {% endfor %}
+
+  {% for friend_monthly in friends_bills %}
+
+    friend_data.push({{ friend_monthly.power_consumed }});
+
+  {% endfor %}
+
   var ctxL = document.getElementById("lineChart").getContext('2d');
   var myLineChart = new Chart(ctxL, {
     type: 'line',
     data: {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
-      datasets: [{
-          label: "My First dataset",
+      labels: ["Jun'19", "May'19", "Apr'19", "Mar'19", "Feb'19", "Jan'19", "Dec'18", "Nov'18",
+              "Oct'18", "Sept'18", "Aug'18", "Jul'18"],
+      datasets: [
+
+        {
+          label: "My energy consumption",
           backgroundColor: [
             'rgba(105, 0, 132, .2)',
           ],
@@ -977,17 +993,17 @@ position:absolute;
             'rgba(200, 99, 132, .7)',
           ],
           borderWidth: 2,
-          data: [65, 59, 80, 81, 56, 55, 40]
+          data: data,
         },
         {
-          label: "My Second dataset",
+          label: "Friend's energy consumption",
           backgroundColor: [
             'rgba(0, 137, 132, .2)',
           ],
           borderColor: [
             'rgba(0, 10, 130, .7)',
           ],
-          data: [28, 48, 40, 19, 86, 27, 90]
+          data: friend_data,
         }
       ]
     },

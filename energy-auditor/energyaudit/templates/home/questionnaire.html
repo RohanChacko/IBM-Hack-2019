@@ -26,16 +26,22 @@ line-height: 1.7;
           <i class="fas fa-lightbulb white-text"></i> Appliance Details</h3>
         <hr class="hr-light">
       </div>
-      {% for i in range %}
+
 
         {% if form.errors %}
         <p>There are errors in the form!</p>
         {% endif %}
 
-        {{ form.as_p }}
+        {{ form_fridge.as_p }}
         <hr class="hr-light">
 
-      {% endfor %}
+        {{ form_ac.as_p }}
+        <hr class="hr-light">
+
+        {{ form_washingmachine.as_p }}
+        <hr class="hr-light">
+
+
 
       <div class="text-center mt-4">
         <button class="btn btn-indigo" type="submit" value="register">Submit</button>
