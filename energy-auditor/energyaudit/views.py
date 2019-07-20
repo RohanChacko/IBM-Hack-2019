@@ -31,9 +31,7 @@ def register(request):
 
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        print(request.POST)
-        print(form)
-        print(form.errors)
+
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
@@ -155,7 +153,7 @@ def profile(request, pk=None):
 
     if pk:
         user = User.objects.get(pk=pk)
-        print(user.username)
+        # print(user.username)
     else:
         user = request.user
 
@@ -236,7 +234,6 @@ def dashboard_analytics(request):
 
     try:
         friends_monthly_bills = MonthlyBill.objects.exclude(owner=request.user).order_by('-month_year')[:12]
-        print(friends_monthly_bills)
     except Exception as e:
         print(e)
         return redirect('dashboard')
@@ -249,7 +246,6 @@ def dashboard_analytics(request):
         return redirect('dashboard')
 
     total_aggr = monthly_bills.first()
-    print(total_aggr.power_consumed)
     # total_aggr.power_consumed
     disag = DisaggregationResults.objects.filter(
         total_aggregate=12345.0).first()
