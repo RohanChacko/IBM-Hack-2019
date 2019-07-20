@@ -44,25 +44,28 @@ bottom: .5em;
           </th>
           <th class="th-sm">Location
           </th>
-          <th class="th-sm">Score/Rank
-          </th>
-          <th class="th-sm">House/Apartment
-          </th>
-          <th class="th-sm">No. of rooms
+          <th class="th-sm">Rank
           </th>
           <th class="th-sm">Energy Saved
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Tiger Nixon</td>
-          <td>System Architect</td>
-          <td>Edinburgh</td>
-          <td>61</td>
-          <td>2011/04/25</td>
-          <td>$320,800</td>
-        </tr>
+        {% for user in users %}
+
+          <tr>
+            <td>
+              <a href="{% url 'profile_with_pk' pk=user.pk %}">
+                {{user.username}}
+              </a>
+            </td>
+
+            <td>{{user.location}}</td>
+            <td>{{user.rank}}</td>
+            <td>{{user.energy_saved}}</td>
+          </tr>
+
+        {% endfor %}
       </tbody>
       <tfoot>
         <tr>
@@ -70,11 +73,7 @@ bottom: .5em;
           </th>
           <th>Location
           </th>
-          <th>Score/Rank
-          </th>
-          <th>House/Apartment
-          </th>
-          <th>No. of rooms
+          <th>Rank
           </th>
           <th>Energy Saved
           </th>

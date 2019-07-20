@@ -1,8 +1,8 @@
 from __future__ import print_function, division
 from warnings import warn, filterwarnings
 
-from matplotlib import rcParams
-import matplotlib.pyplot as plt
+# from matplotlib import rcParams
+# import matplotlib.pyplot as plt
 
 import random
 import sys
@@ -373,7 +373,7 @@ class ShortSeq2PointDisaggregator(Disaggregator):
         model.add(Conv1D(50, 5, activation='relu', padding="same", strides=1))
         model.add(Dropout(0.5))
         model.add(Conv1D(50, 5, activation='relu', padding="same", strides=1))
-        model.add(Dropout(0.5))        
+        model.add(Dropout(0.5))
         # Fully Connected Layers
         model.add(Flatten())
         model.add(Dense(1024, activation='relu'))

@@ -72,10 +72,6 @@ def register_details(request):
 def login_user(request):
 
     username = password = ''
-    context = {
-    'login_active': 'active',
-    }
-
     if request.user.is_authenticated:
         return redirect('dashboard')
 
@@ -90,7 +86,6 @@ def login_user(request):
                 return redirect('dashboard')
 
     return render(request, 'home/login.html', context)
-    # return render_to_response('login.html', context_instance=RequestContext(request))
 
 @login_required
 def logout_user(request):
@@ -100,18 +95,21 @@ def logout_user(request):
 @login_required
 def dashboard(request):
 
-    context = {
-        'dashboard_active': 'active',
-    }
+    context = dashboard_analytics(request)
+    context['dashboard_active'] = 'active'
 
     return render(request, 'account/dashboard.html', context)
 
 @login_required
 def leaderboard(request):
 
+    users = User.objects.exclude(id=request.user.id)
+
     context = {
         'leaderboard_active': 'active',
+        'users' : users,
     }
+
     return render(request, 'account/leaderboard.html', context)
 
 @login_required
@@ -184,7 +182,6 @@ def add_addr(request):
     return render(request, 'home/add_addr.html', context)
 
 
-@login_required
 def dashboard_analytics(request):
 
     try:
@@ -202,40 +199,38 @@ def dashboard_analytics(request):
 
     total_aggr = monthly_bills.first()
 
-
-    disag = DisaggregationResults.objects.filter(total_aggregate = total_aggr.power_consumed).first()
+    # total_aggr.power_consumed
+    disag = DisaggregationResults.objects.filter(total_aggregate = 12345.0).first()
     if disag is None:
         pass
         # Call the model and store the results back
 
     appl_dict = {}
-    for appl in appliances:    
+    for appl in appliances:
         if appl['name'] == 'fridge':
             appl_dict[appl['name']] = appl['qty']*disag.fridge
         if appl['name'] == 'air conditioner':
             appl_dict[appl['name']] = appl['qty']*disag.ac
         if appl['name'] == 'washing machine':
             appl_dict[appl['name']] = appl['qty']*disag.washing_machine
-        
+
     context = {
-        'monthlybill_active': 'active',
         'bills': monthly_bills,
         'appliances':appl_dict,
-        'form': UserLocationForm(),
     }
 
-    return render(request, 'account/bills.html', context)
+    return context
 
 
-class FriendSuggestions(TemplateView):
-    template_name = "users/friend_suggestions.html"
-
-    def get(self, request):
-
-        users = User.objects.exclude(id=request.user.id)
-
-        context = {
-            'users' : users,
-        }
-
-        return render(request, self.template_name, context)
+# class FriendSuggestions(TemplateView):
+#     template_name = "users/friend_suggestions.html"
+#
+#     def get(self, request):
+#
+#         users = User.objects.exclude(id=request.user.id)
+#
+#         context = {
+#             'users' : users,
+#         }
+#
+#         return render(request, self.template_name, context)

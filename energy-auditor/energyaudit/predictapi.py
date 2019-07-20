@@ -1,8 +1,8 @@
 from __future__ import print_function, division
 import time
 
-from matplotlib import rcParams
-import matplotlib.pyplot as plt
+# from matplotlib import rcParams
+# import matplotlib.pyplot as plt
 
 from nilmtk import DataSet, TimeFrame, MeterGroup, HDFDataStore
 from .shortseq2pointdisaggregator import ShortSeq2PointDisaggregator
@@ -27,7 +27,7 @@ def get_disaggregation(device, total_aggregate):
 		start = int(str(table[0][0])[:10])
 		end = int(str(table[total_seconds-1][0])[:10])
 		print(start,end)
-		
+
 		# for i in range(total_seconds):
 		# 	for j in range(7):
 		# 		print("Progress {:2.1%}".format(i / total_seconds), end="\r")
@@ -56,7 +56,7 @@ def get_disaggregation(device, total_aggregate):
                                                         device,
                                                         10))
 
-	
+
 	# anykey = input()
 	# test_mains: The aggregated signal meter
 	# output: The output datastore
@@ -70,8 +70,3 @@ def get_disaggregation(device, total_aggregate):
 	prediction = res_elec[device]
 
 	return prediction
-
-
-
-
-
