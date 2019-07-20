@@ -218,7 +218,7 @@ def add_addr(request):
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-            return redirect('dashboard')
+            return redirect('dashboard', True)
 
     return render(request, 'home/add_addr.html', context)
 
