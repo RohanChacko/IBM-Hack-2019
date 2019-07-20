@@ -38,3 +38,9 @@ class UserLocation(models.Model):
     
     num_room = models.PositiveIntegerField("Number of Rooms")
     area = models.PositiveIntegerField("Area (Square Feet)")
+
+class DisaggregationResults(models.Model):
+    total_aggregate = models.FloatField()
+    fridge = models.FloatField()
+    ac = models.FloatField()
+    washing_machine = models.FloatField()

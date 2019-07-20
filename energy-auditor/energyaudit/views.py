@@ -6,7 +6,10 @@ from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import ApplianceForm, MonthlyBillForm, UserLocationForm
-# from .for_demo import get_disaggregation
+from django.db.models import Sum
+from .models import *
+from .predictapi import get_disaggregation
+
 # Create your views here.
 
 def index(request):
@@ -138,6 +141,24 @@ def add_bill(request):
     return render(request, 'account/add_bill.html', context)
 
 @login_required
+def add_appl(request):
+    context = {
+        'monthlybill_active': 'active',
+        'form': ApplianceForm(),
+    }
+
+    if request.method == 'POST':
+        form = ApplianceForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.owner = request.user
+            post.save()
+            return redirect('dashboard')
+
+    return render(request, 'account/add_appl.html', context)
+
+
+@login_required
 def add_addr(request):
     context = {
         'monthlybill_active': 'active',
@@ -154,6 +175,48 @@ def add_addr(request):
 
     return render(request, 'account/add_addr.html', context)
 
+
+@login_required
+def dashboard_analytics(request):
+
+    try:
+        monthly_bills = MonthlyBill.objects.filter(owner=request.user).order_by('-month_year')[:12]
+    except Exception as e:
+        print(e)
+        return redirect('dashboard')
+
+
+    try:
+        appliances = Appliance.objects.filter(owner=request.user).values('name').annotate(qty=Sum('quantity')).all()
+    except Exception as e:
+        print(e)
+        return redirect('dashboard')
+
+    total_aggr = monthly_bills.first()
+
+
+    disag = DisaggregationResults.objects.filter(total_aggregate = total_aggr.power_consumed).first()
+    if disag is None:
+        pass
+        # Call the model and store the results back
+
+    appl_dict = {}
+    for appl in appliances:    
+        if appl['name'] == 'fridge':
+            appl_dict[appl['name']] = appl['qty']*disag.fridge
+        if appl['name'] == 'air conditioner':
+            appl_dict[appl['name']] = appl['qty']*disag.ac
+        if appl['name'] == 'washing machine':
+            appl_dict[appl['name']] = appl['qty']*disag.washing_machine
+        
+    context = {
+        'monthlybill_active': 'active',
+        'bills': monthly_bills,
+        'appliances':appl_dict,
+        'form': UserLocationForm(),
+    }
+
+    return render(request, 'account/bills.html', context)
 
 
 class FriendSuggestions(TemplateView):
