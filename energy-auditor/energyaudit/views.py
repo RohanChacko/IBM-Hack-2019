@@ -114,7 +114,7 @@ def leaderboard(request):
 
 @login_required
 def profile(request, pk=None):
-    print(pk)
+
 
     if pk:
         user = User.objects.get(pk=pk)
@@ -122,9 +122,12 @@ def profile(request, pk=None):
     else:
         user = request.user
 
+    location = UserLocation.objects.filter(owner=request.user).values('building', 'street', 'city', 'state')
+
     context = {
         'profile_active': 'active',
-        'user': user
+        'user': user,
+        'location': location,
     }
 
     return render(request, 'account/profile.html', context)

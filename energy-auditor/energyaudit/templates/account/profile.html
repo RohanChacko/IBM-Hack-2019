@@ -50,12 +50,16 @@
                 <!-- Title -->
                 <h4 class="card-title"><strong>{{ user.username|title }}</strong></h4>
                 <h5>Some interesting info. maybe rank in leaderboard</h5>
-                <p class="dark-grey-text"><i class="fas fa-map-marker-alt mr-2"></i>Location</p>
+                <p class="dark-grey-text"><i class="fas fa-map-marker-alt mr-2"></i>
+                    {% for loc in location %}
+                      {{ loc.building|title }}, {{ loc.street|title }}, {{ loc.city|title }}, {{ loc.state|title }}
+                    {% endfor %}
+                </p>
 
                 <!-- Text -->
-                <p class="card-text mt-3">Some quick example text to build on the card title and make up the bulk of
+                <!-- <p class="card-text mt-3">Some   quick example text to build on the card title and make up the bulk of
                   the card's content.
-                </p>
+                </p> -->
               </div>
 
             </section>
