@@ -31,13 +31,15 @@ line-height: 1.7;
         {% if form.errors %}
         <p>There are errors in the form!</p>
         {% endif %}
-
+        <h4 class="white-text text-center"> Add fridge details</h4>
         {{ form_fridge.as_p }}
         <hr class="hr-light">
 
+        <h4 class="white-text text-center"> Add air conditioner details</h4>
         {{ form_ac.as_p }}
         <hr class="hr-light">
 
+        <h4 class="white-text text-center"> Add washing machine details</h4>
         {{ form_washingmachine.as_p }}
         <hr class="hr-light">
 
