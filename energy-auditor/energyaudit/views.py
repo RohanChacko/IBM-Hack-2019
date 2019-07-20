@@ -72,6 +72,11 @@ def register_details(request):
 def login_user(request):
 
     username = password = ''
+
+    context = {
+    'login_active': 'active',
+    }
+
     if request.user.is_authenticated:
         return redirect('dashboard')
 
@@ -101,13 +106,20 @@ def dashboard(request):
     return render(request, 'account/dashboard.html', context)
 
 @login_required
-def leaderboard(request):
+def leaderboard(request, pk=None):
+
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
 
     users = User.objects.exclude(id=request.user.id)
+    location = UserLocation.objects.exclude(owner=request.user).values('city', 'state').all()
 
     context = {
         'leaderboard_active': 'active',
         'users' : users,
+        'location': location,
     }
 
     return render(request, 'account/leaderboard.html', context)
@@ -201,7 +213,7 @@ def dashboard_analytics(request):
         return redirect('dashboard')
 
     total_aggr = monthly_bills.first()
-
+    print(total_aggr.power_consumed)
     # total_aggr.power_consumed
     disag = DisaggregationResults.objects.filter(total_aggregate = 12345.0).first()
     if disag is None:

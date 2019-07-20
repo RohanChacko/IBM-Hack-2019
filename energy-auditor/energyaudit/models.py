@@ -59,11 +59,11 @@ class UserLocation(models.Model):
     street = models.CharField("Street Address",max_length=60)
     city = models.CharField("City",max_length=60)
     state = models.CharField("State",max_length=60)
+    house_type = models.CharField("House Type",max_length=60, choices=HOUSE_TYPE, default='Apartment')
     pincode = models.PositiveIntegerField()
 
     num_room = models.PositiveIntegerField("Number of Rooms")
     area = models.PositiveIntegerField("Area (Square Feet)")
-    house_type = models.CharField("House Type",max_length=60, choices=HOUSE_TYPE)
 
 class DisaggregationResults(models.Model):
     total_aggregate = models.FloatField()
