@@ -113,14 +113,17 @@ def leaderboard(request):
 
 @login_required
 def profile(request, pk=None):
+    print(pk)
 
     if pk:
         user = User.objects.get(pk=pk)
+        print(user.username)
     else:
         user = request.user
 
     context = {
         'profile_active': 'active',
+        'user': user
     }
 
     return render(request, 'account/profile.html', context)
