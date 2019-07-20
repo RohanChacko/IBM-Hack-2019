@@ -52,17 +52,18 @@ def register(request):
 @login_required
 def register_details(request):
     context = {
-    'register_active': 'active',
-    'form_fridge': ApplianceForm(prefix='fridge'),
-    'form_ac': ApplianceForm(prefix='ac'),
-    'form_washingmachine': ApplianceForm(prefix='washingmachine'),
+        'register_active': 'active',
+        'form_fridge': ApplianceForm(prefix='fridge'),
+        'form_ac': ApplianceForm(prefix='ac'),
+        'form_washingmachine': ApplianceForm(prefix='washingmachine'),
     }
 
     if request.method == 'POST':
 
         form_fridge = ApplianceForm(request.POST, prefix='fridge')
         form_ac = ApplianceForm(request.POST, prefix='ac')
-        form_washingmachine = ApplianceForm(request.POST, prefix='washingmachine')
+        form_washingmachine = ApplianceForm(
+            request.POST, prefix='washingmachine')
 
         if form_fridge.is_valid():
             post = form_fridge.save(commit=False)
@@ -73,7 +74,6 @@ def register_details(request):
             post = form_ac.save(commit=False)
             post.owner = request.user
             post.save()
-
 
         if form_washingmachine.is_valid():
             post = form_washingmachine.save(commit=False)
@@ -233,7 +233,8 @@ def dashboard_analytics(request):
         return redirect('dashboard', new=True)
 
     try:
-        friends_monthly_bills = MonthlyBill.objects.exclude(owner=request.user).order_by('-month_year')[:12]
+        friends_monthly_bills = MonthlyBill.objects.exclude(
+            owner=request.user).order_by('-month_year')[:12]
     except Exception as e:
         print(e)
         return redirect('dashboard')
@@ -265,7 +266,7 @@ def dashboard_analytics(request):
     context = {
         'bills': monthly_bills,
         'friends_bills': friends_monthly_bills,
-        'appliances':appl_dict,
+        'appliances': appl_dict,
     }
 
     return context
