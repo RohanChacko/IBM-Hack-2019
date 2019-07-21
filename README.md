@@ -66,7 +66,7 @@ Navigate to `https://cloud.ibm.com/resources` and click on `Cloud Foundry Apps` 
 
 ### Architecture Flow Diagram
 <p align="center">
-  <img src="https://github.com/RohanChacko/IBM-Hack-2019/blob/master/assets/Arch_Flow.png" alt="Architecture Flow"/>
+  <img src="https://github.com/RohanChacko/IBM-Hack-2019/blob/master/assets/crp_arch_flow.png" alt="Architecture Flow"/>
 </p>
 
 ## Directory Structure
