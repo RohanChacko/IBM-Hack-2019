@@ -9,6 +9,7 @@ from .forms import ApplianceForm, MonthlyBillForm, UserLocationForm
 from django.db.models import Sum
 from .models import *
 from .predictapi import get_disaggregation
+import random
 
 # Create your views here.
 
@@ -120,7 +121,7 @@ def dashboard(request):
 
     context = {}
 
-    if 'add_addr' in request.META.get('HTTP_REFERER'):
+    if request.META.get('HTTP_REFERER') is not None and 'add_addr' in request.META.get('HTTP_REFERER'):
         context = dashboard_analytics(request)
         if context is None:
             context = {}
@@ -190,7 +191,7 @@ def add_bill(request, suggestions=None):
 
             # Adding suggestions
             suggestions = get_suggestions(request.POST)
-            return redirect('add_bill', suggestions)
+            return redirect('add_bill',  suggestions)
 
     return render(request, 'account/add_bill.html', context)
 
@@ -279,6 +280,82 @@ def get_suggestions(post_data):
     }
 
     ## Get avg from friends & see which device is above or below avg
+    try:
+        friends_monthly_avg = MonthlyBill.objects.exclude(
+            owner=request.user).aggregate(Avg('power_consumed'))
+    except Exception as e:
+        print(e)
+        return None
+
+
+    if friends_monthly_avg is None:
+        return None
+
+    total_aggr = friend_suggestions.power_consumed
+
+    disag = DisaggregationResults.objects.filter(
+        total_aggregate=12345.0).first()
+    if disag is None:
+        # Call the model and store the results back
+        fridge_estimate = get_disaggregation("fridge", total_aggr)
+        ac_estimate = get_disaggregation("air conditioner", total_aggr)
+        wm_estimate = get_disaggregation("washing machine", total_aggr)
+
+        disag = DisaggregationResults(
+            total_aggregate=total_aggr,
+            fridge=fridge_estimate,
+            ac=ac_estimate,
+            washing_machine=wm_estimate
+        )
+        disag.save()
+
+    friend_aggr = total_aggr
+    friend_obj = disag
+
+    try:
+        appliances = Appliance.objects.filter(owner=request.user).values(
+            'name').annotate(qty=Sum('quantity')).all()
+    except Exception as e:
+        print(e)
+        return None
+
+    total_aggr = monthly_bills.first()
+    if total_aggr is None:
+        return None
+
+    total_aggr = total_aggr.power_consumed
+    # total_aggr.power_consumed
+    disag = DisaggregationResults.objects.filter(
+        total_aggregate=12345.0).first()
+    if disag is None:
+        # Call the model and store the results back
+        fridge_estimate = get_disaggregation("fridge", total_aggr)
+        ac_estimate = get_disaggregation("air conditioner", total_aggr)
+        wm_estimate = get_disaggregation("washing machine", total_aggr)
+
+        disag = DisaggregationResults(
+            total_aggregate=total_aggr,
+            fridge=fridge_estimate,
+            ac=ac_estimate,
+            washing_machine=wm_estimate
+        )
+        disag.save()
+
+    suggestions_list = []
+    for appl in appliances:
+        if appl['name'] == 'fridge' and disag.fridge > friend_obj.fridge:
+            suggestions_list.append("Your Fridge is consuming more than your friends' average!")
+            suggestions_list.append(random.choice(SUGGESTION_LIST["fridge"]))
+        if appl['name'] == 'air conditioner' and disag.ac > friend_obj.ac:
+            suggestions_list.append("Your Fridge is consuming more than your friends' average!")
+            suggestions_list.append(random.choice(SUGGESTION_LIST["fridge"]))
+        if appl['name'] == 'washing machine' and disag.washing_machine > friend_obj.washing_machine:
+            suggestions_list.append("Your Fridge is consuming more than your friends' average!")
+            suggestions_list.append(random.choice(SUGGESTION_LIST["fridge"]))
+
+    # return {'suggestions':suggestions_list}
+    return suggestions_list
+            
 
 
 def dashboard_analytics(request):
@@ -288,21 +365,21 @@ def dashboard_analytics(request):
             owner=request.user).order_by('-month_year')[:12]
     except Exception as e:
         print(e)
-        return redirect('dashboard')
+        return None
 
     try:
         friends_monthly_bills = MonthlyBill.objects.exclude(
             owner=request.user).order_by('-month_year')[:12]
     except Exception as e:
         print(e)
-        return redirect('dashboard')
+        return None
 
     try:
         appliances = Appliance.objects.filter(owner=request.user).values(
             'name').annotate(qty=Sum('quantity')).all()
     except Exception as e:
         print(e)
-        return redirect('dashboard')
+        return None
 
     total_aggr = monthly_bills.first()
     if total_aggr is None:
