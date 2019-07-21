@@ -263,15 +263,25 @@ def dashboard_analytics(request):
         wm_estimate = get_disaggregation("washing machine",total_aggr)
 
         disag = DisaggregationResults(total_aggregate=total_aggr, fridge=fridge_estimate, ac=ac_estimate, washing_machine=wm_estimate)
+        disag.save()
 
     appl_dict = {}
+    others = total_aggr
     for appl in appliances:
         if appl['name'] == 'fridge':
-            appl_dict[appl['name']] = appl['qty']*disag.fridge
+            appl_dict[appl['name']] = disag.fridge
+            # appl_dict[appl['name']] = appl['qty']*disag.fridge
+            others -= disag.fridge
         if appl['name'] == 'air conditioner':
-            appl_dict[appl['name']] = appl['qty']*disag.ac
+            appl_dict[appl['name']] = disag.ac
+            others -= disag.ac
+            # appl_dict[appl['name']] = appl['qty']*disag.ac
         if appl['name'] == 'washing machine':
-            appl_dict[appl['name']] = appl['qty']*disag.washing_machine
+            appl_dict[appl['name']] = disag.washing_machine
+            others -= disag.washing_machine
+            # appl_dict[appl['name']] = appl['qty']*disag.washing_machine
+
+    appl_dict["others"] = others
 
     context = {
         'bills': monthly_bills,
