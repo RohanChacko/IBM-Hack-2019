@@ -1,7 +1,6 @@
  applications: 
   - name: Energy Auditor
   - random-route: true
-  - disk_quota: 2G
-  - memory: 16G
+  - memory: 4G
   - env:
     CF_STAGING_TIMEOUT: 60
