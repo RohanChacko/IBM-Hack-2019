@@ -116,11 +116,11 @@ def logout_user(request):
 
 
 @login_required
-def dashboard(request, new=None):
+def dashboard(request):
 
     context = {}
 
-    if new is None:
+    if 'add_addr' in request.META.get('HTTP_REFERER'):
         context = dashboard_analytics(request)
         if context is None:
             context = {}
@@ -172,11 +172,14 @@ def profile(request, pk=None):
 
 
 @login_required
-def add_bill(request):
+def add_bill(request, suggestions=None):
     context = {
         'monthlybill_active': 'active',
         'form': MonthlyBillForm(),
     }
+
+    if suggestions is not None:
+        context['suggestions'] = suggestions
 
     if request.method == 'POST':
         form = MonthlyBillForm(request.POST)
@@ -187,7 +190,7 @@ def add_bill(request):
 
             # Adding suggestions
             suggestions = get_suggestions(request.POST)
-            return redirect('add_bill')
+            return redirect('add_bill', suggestions)
 
     return render(request, 'account/add_bill.html', context)
 
@@ -223,15 +226,14 @@ def add_addr(request):
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-            return redirect('dashboard', True)
+            return redirect('dashboard')
 
     return render(request, 'home/add_addr.html', context)
 
 
 def get_suggestions(post_data):
 
-    SUGGESTION_LIST =
-    {
+    SUGGESTION_LIST = {
         'fridge': ["Position your fridge right: Make sure that there is proper \
                     air flow around the refrigerator. Do not place it near windows,\
                     stoves, or ovens. Heat from the sun or cooking appliances can \
@@ -286,7 +288,7 @@ def dashboard_analytics(request):
             owner=request.user).order_by('-month_year')[:12]
     except Exception as e:
         print(e)
-        return redirect('dashboard', new=True)
+        return redirect('dashboard')
 
     try:
         friends_monthly_bills = MonthlyBill.objects.exclude(
@@ -309,7 +311,7 @@ def dashboard_analytics(request):
     total_aggr = total_aggr.power_consumed
     # total_aggr.power_consumed
     disag = DisaggregationResults.objects.filter(
-        total_aggregate=total_aggr).first()
+        total_aggregate=12345.0).first()
     if disag is None:
         # Call the model and store the results back
         fridge_estimate = get_disaggregation("fridge", total_aggr)
