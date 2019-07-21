@@ -57,12 +57,14 @@ python manage.py runserver
 ├── assets
 ├── docs
 │   ├── Ideation Document.pdf
+│   ├── Presentation.pptx
 │   └── Undertaking Form.pdf
 ├── energy-auditor
 │   ├── db.sqlite3
 │   ├── energyaudit
 │   │   ├── admin.py
 │   │   ├── apps.py
+│   │   ├── experiment.py
 │   │   ├── for_demo.py
 │   │   ├── forms.py
 │   │   ├── __init__.py
@@ -70,7 +72,6 @@ python manage.py runserver
 │   │   ├── migrations
 │   │   ├── model.png
 │   │   ├── models.py
-│   │   ├── predictapi2.py
 │   │   ├── predictapi.py
 │   │   ├── __pycache__
 │   │   ├── shortseq2pointdisaggregator.py
@@ -92,8 +93,16 @@ python manage.py runserver
 │   ├── Procfile
 │   ├── requirements.txt
 │   └── runtime.txt
+├── ML snippets
+│   ├── iawe-test2.py
+│   ├── iawetrain.py
+│   ├── metrics.py
+│   ├── Results.txt
+│   └── shortseq2pointdisaggregator.py
 ├── model15min
-└── README.md
+├── README.md
+└── venv
+
 
 ```
 
@@ -108,4 +117,4 @@ python manage.py runserver
 * Registered accounts
   * ID: chacko | Password: greenticks
   * ID: greenticks | Password: blueticks
-* Since disaggregation takes time, we have put a stub for demonstration purposes. Viewing it locally with the set values will be easier to understand the proof-of-concept. The set values can be easily replaced with appropriate variables when required in production. With more computational power, the disaggregation can be made done faster. 
+* Since disaggregation takes time, we have put a stub for demonstration purposes. Viewing it locally with the set values will be easier to understand the proof-of-concept. The set values can be easily replaced with appropriate variables when required in production. With more computational power, the disaggregation can be made done faster.
