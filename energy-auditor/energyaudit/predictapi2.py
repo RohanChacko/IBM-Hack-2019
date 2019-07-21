@@ -83,6 +83,15 @@ def get_disaggregation(device, total_aggregate):
     prediction = res_elec[device]
     df = next(prediction.load(sample_period = total_entries))
 
-    # prediction = df["power"]["active"][0]
+    prediction = df["power"]["active"][0]
 
     return prediction
+
+
+def main():
+    ans = get_disaggregation("fridge", 1230)
+    print(ans)
+
+
+if __name__ == "__main__":
+    main()
