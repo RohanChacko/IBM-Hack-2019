@@ -5,7 +5,7 @@ import time
 # import matplotlib.pyplot as plt
 
 from nilmtk import DataSet, TimeFrame, MeterGroup, HDFDataStore
-from .shortseq2pointdisaggregator import ShortSeq2PointDisaggregator
+from shortseq2pointdisaggregator import ShortSeq2PointDisaggregator
 
 from datetime import datetime
 import h5py
@@ -13,7 +13,6 @@ import tables
 import numpy as np
 
 import os
-
 
 def get_disaggregation(device, total_aggregate):
 
@@ -24,8 +23,10 @@ def get_disaggregation(device, total_aggregate):
     if device not in devices:
         return None
 
-    total_seconds = 30*24*60*60
-    val_per_second = float(total_aggregate)/total_seconds
+    total_seconds = 30*24*60
+    val_per_second = float(total_aggregate)/(total_seconds)
+
+    print(val_per_second)
 
     start = 0
     end = 0
@@ -34,35 +35,45 @@ def get_disaggregation(device, total_aggregate):
         table = f1["building1/elec/meter1/table"].value
 
         start = int(str(table[0][0])[:10])
-        end = int(str(table[total_seconds-1][0])[:10])
-        print(start, end)
+        end =  start + total_seconds
+        print(end-start,total_seconds)
 
-        for i in range(total_seconds):
-            for j in range(7):
-                print("Progress {:2.1%}".format(i / total_seconds), end="\r")
-                table[i][1][j] = val_per_second + np.random.uniform(
-                    -1e-17, 1e-17, 1)
+        # for i in range(total_seconds):
+        #     # for j in range(7):
+        #     print("Progress {:2.1%}".format(i / total_seconds), end="\r")
+        #     table[i][1][2] = val_per_second + np.random.uniform(-1e-17,
+        #  1e-17, 1)
 
-        f1["building1/elec/meter1/table"][...] = table
+        # f1["building1/elec/meter1/table"][...] = table
+        # print(table)
 
-    start = datetime.fromtimestamp(start)
+    # start = datetime.fromtimestamp(start)
     end = datetime.fromtimestamp(end)
 
-    start = start.isoformat(' ', 'seconds')
+    # start = start.isoformat(' ', 'seconds')
     end = end.isoformat(' ', 'seconds')
 
+    # print(start, end)
+
     test = DataSet(dataset_file)
-    test.set_window(start=start, end=end)
+    # test.set_window(start=start, end=end)
+    test.set_window( end=end)
     test_elec = test.buildings[1].elec
     test_mains = test_elec.mains()[1]
+
+    df = next(test_mains.load())
+    print(df)
+
     test_meter = test_elec.submeters()[device]
+
+
 
     disag_filename = 'disag-out.h5'  # The filename of the resulting datastore
     output = HDFDataStore(disag_filename, 'w')
 
     disaggregator = ShortSeq2PointDisaggregator()
     model_file = os.path.join(
-        here, "disag15/IAWE-RNN-h{}-{}-{}epochs.h5".format(1, device, 10))
+        here, "disag1/IAWE-RNN-h{}-{}-{}epochs.h5".format(1, device, 10))
     disaggregator.import_model(model_file)
 
     # anykey = input()
@@ -70,15 +81,15 @@ def get_disaggregation(device, total_aggregate):
     # output: The output datastore
     # train_meter: This is used in order to copy the metadata of the train
     # meter into the datastore
-    disaggregator.disaggregate(test_mains, output, test_meter, sample_period=1)
+    disaggregator.disaggregate(test_mains, output, test_mains, sample_period=1)
+    output.close()
 
     result = DataSet(disag_filename)
     res_elec = result.buildings[1].elec
 
-    prediction = res_elec[device]
-    df = next(prediction.load())
-    prediction = df["power"]["active"][0]
-
-    result.store.close()
+    # prediction = res_elec[device]
+    prediction = res_elec
+    # df = next(prediction.load())
+    # prediction = df["power"]["active"][0]
 
     return prediction
