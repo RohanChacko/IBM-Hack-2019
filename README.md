@@ -108,3 +108,4 @@ python manage.py runserver
 * Registered accounts
   * ID: chacko | Password: greenticks
   * ID: greenticks | Password: blueticks
+* Since disaggregation takes time, we have put a stub for demonstration purposes. Viewing it locally with the set values will be easier to understand the proof-of-concept. The set values can be easily replaced with appropriate variables when required in production. With more computational power, the disaggregation can be made done faster. 
