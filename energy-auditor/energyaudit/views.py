@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ApplianceForm, MonthlyBillForm, UserLocationForm
 from django.db.models import Sum
 from .models import *
-from .predictapi import get_disaggregation
+from .predictapi2 import get_disaggregation
 
 # Create your views here.
 
@@ -247,12 +247,20 @@ def dashboard_analytics(request):
         return redirect('dashboard')
 
     total_aggr = monthly_bills.first()
+    if total_aggr is None:
+        return None
+
+    total_aggr = total_aggr.power_consumed
     # total_aggr.power_consumed
     disag = DisaggregationResults.objects.filter(
-        total_aggregate=12345.0).first()
+        total_aggregate=total_aggr).first()
     if disag is None:
-        pass
         # Call the model and store the results back
+        fridge_estimate = get_disaggregation("fridge",total_aggr)
+        ac_estimate = get_disaggregation("air conditioner",total_aggr)
+        wm_estimate = get_disaggregation("washing machine",total_aggr)
+
+        disag = DisaggregationResults(total_aggregate=total_aggr, fridge=fridge_estimate, ac=ac_estimate, washing_machine=wm_estimate)
 
     appl_dict = {}
     for appl in appliances:
