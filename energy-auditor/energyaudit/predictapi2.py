@@ -5,7 +5,7 @@ import time
 # import matplotlib.pyplot as plt
 
 from nilmtk import DataSet, TimeFrame, MeterGroup, HDFDataStore
-from .shortseq2pointdisaggregator import ShortSeq2PointDisaggregator
+from shortseq2pointdisaggregator import ShortSeq2PointDisaggregator
 # from .shortseq2pointdisaggregator import ShortSeq2PointDisaggregator
 
 from datetime import datetime
@@ -83,8 +83,8 @@ def get_disaggregation(device, total_aggregate):
     res_elec = result.buildings[1].elec
 
     prediction = res_elec[device]
-    df = next(prediction.load())
+    df = next(prediction.load(sample_period = total_entries))
 
-    prediction = df["power"]["active"][0]
+    # prediction = df["power"]["active"][0]
 
     return prediction
