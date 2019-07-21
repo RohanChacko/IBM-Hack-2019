@@ -1,8 +1,7 @@
-name: ibmhack
+name: Energy Auditor
 channels:
-  - nilmtk
   - conda-forge
-  - defaults
+  - nilmtk
 dependencies:
   - _libgcc_mutex=0.1=main
   - absl-py=0.7.1=py36_0
@@ -15,6 +14,7 @@ dependencies:
   - bzip2=1.0.8=h516909a_0
   - c-ares=1.15.0=h516909a_1001
   - ca-certificates=2019.6.16=hecc5488_0
+  - cairo=1.16.0=h18b612c_1001
   - certifi=2019.6.16=py36_1
   - coverage=4.5.3=py36h14c3975_0
   - cython=0.29.12=py36he1b5a44_0
@@ -25,14 +25,18 @@ dependencies:
   - expat=2.2.5=he1b5a44_1003
   - fontconfig=2.13.1=he4413a7_1000
   - freetype=2.10.0=he983fc9_0
+  - fribidi=1.0.5=h516909a_1002
   - future=0.17.1=py36_1000
   - gast=0.2.2=py_0
   - gettext=0.19.8.1=hc5be6a0_1002
   - glib=2.58.3=h6f030ca_1002
+  - graphite2=1.3.13=hf484d3e_1000
+  - graphviz=2.40.1=h5933667_1
   - grpcio=1.16.1=py36hf8bcb03_1
   - gst-plugins-base=1.14.5=h0935bb2_0
   - gstreamer=1.14.5=h36ae1b5_0
   - h5py=2.9.0=nompi_py36hf008753_1102
+  - harfbuzz=2.4.0=h37c48d4_1
   - hdf5=1.10.4=nompi_h3c11f04_1106
   - hmmlearn=0.2.1=py36h3010b51_1000
   - icu=58.2=hf484d3e_1000
@@ -69,9 +73,12 @@ dependencies:
   - libprotobuf=3.9.0=h8b12597_0
   - libsodium=1.0.17=h516909a_0
   - libstdcxx-ng=9.1.0=hdf63c60_0
+  - libtiff=4.0.10=h57b8799_1003
+  - libtool=2.4.6=h14c3975_1002
   - libuuid=2.32.1=h14c3975_1000
   - libxcb=1.13=h14c3975_1002
   - libxml2=2.9.9=h13577e0_2
+  - lz4-c=1.8.3=he1b5a44_1001
   - lzo=2.10=h14c3975_1000
   - mako=1.0.10=py_0
   - markdown=3.1.1=py_0
@@ -95,17 +102,20 @@ dependencies:
   - pandas=0.25.0=py36hb3f55d8_0
   - pandoc=2.7.3=0
   - pandocfilters=1.4.2=py_1
+  - pango=1.42.4=he7ab937_0
   - parso=0.5.1=py_0
   - pcre=8.41=hf484d3e_1003
   - pexpect=4.7.0=py36_0
   - pickleshare=0.7.5=py36_1000
   - pip=19.1.1=py36_0
+  - pixman=0.38.0=h516909a_1003
   - prometheus_client=0.7.1=py_0
   - prompt_toolkit=2.0.9=py_0
   - protobuf=3.9.0=py36he1b5a44_0
   - psycopg2=2.8.3=py36h72c5cf5_0
   - pthread-stubs=0.4=h14c3975_1001
   - ptyprocess=0.6.0=py_1001
+  - pydot=1.4.1=py36_1000
   - pygments=2.4.2=py_0
   - pygpu=0.7.6=py36h3010b51_1000
   - pyparsing=2.4.0=py_0
@@ -140,12 +150,24 @@ dependencies:
   - werkzeug=0.15.5=py_0
   - wheel=0.33.4=py36_0
   - widgetsnbextension=3.5.0=py36_0
+  - xorg-kbproto=1.0.7=h14c3975_1002
+  - xorg-libice=1.0.10=h516909a_0
+  - xorg-libsm=1.2.3=h84519dc_1000
+  - xorg-libx11=1.6.8=h516909a_0
   - xorg-libxau=1.0.9=h14c3975_0
   - xorg-libxdmcp=1.1.3=h516909a_0
+  - xorg-libxext=1.3.4=h516909a_0
+  - xorg-libxpm=3.5.12=h14c3975_1002
+  - xorg-libxrender=0.9.10=h516909a_1002
+  - xorg-libxt=1.1.5=h516909a_1003
+  - xorg-renderproto=0.11.1=h14c3975_1002
+  - xorg-xextproto=7.3.0=h14c3975_1002
+  - xorg-xproto=7.0.31=h14c3975_1007
   - xz=5.2.4=h14c3975_1001
   - yaml=0.1.7=h14c3975_1001
   - zeromq=4.3.2=he1b5a44_2
   - zlib=1.2.11=h516909a_1005
+  - zstd=1.4.0=h3b9ef0a_0
   - pip:
     - astroid==2.2.5
     - autopep8==1.4.4
@@ -172,4 +194,3 @@ dependencies:
     - urllib3==1.25.3
     - wrapt==1.11.2
 prefix: /home/zubair/anaconda3/envs/ibmhack
-

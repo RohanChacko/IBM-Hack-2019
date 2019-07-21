@@ -116,11 +116,11 @@ def logout_user(request):
 
 
 @login_required
-def dashboard(request, new=None):
+def dashboard(request):
 
     context = {}
 
-    if new is None:
+    if 'add_addr' in request.META.get('HTTP_REFERER'):
         context = dashboard_analytics(request)
         if context is None:
             context = {}
@@ -172,11 +172,14 @@ def profile(request, pk=None):
 
 
 @login_required
-def add_bill(request):
+def add_bill(request, suggestions=None):
     context = {
         'monthlybill_active': 'active',
         'form': MonthlyBillForm(),
     }
+
+    if suggestions is not None:
+        context['suggestions'] = suggestions
 
     if request.method == 'POST':
         form = MonthlyBillForm(request.POST)
@@ -184,7 +187,10 @@ def add_bill(request):
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-            return redirect('add_bill')
+
+            # Adding suggestions
+            suggestions = get_suggestions(request.POST)
+            return redirect('add_bill', suggestions)
 
     return render(request, 'account/add_bill.html', context)
 
@@ -220,9 +226,59 @@ def add_addr(request):
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-            return redirect('dashboard', True)
+            return redirect('dashboard')
 
     return render(request, 'home/add_addr.html', context)
+
+
+def get_suggestions(post_data):
+
+    SUGGESTION_LIST = {
+        'fridge': ["Position your fridge right: Make sure that there is proper \
+                    air flow around the refrigerator. Do not place it near windows,\
+                    stoves, or ovens. Heat from the sun or cooking appliances can \
+                    cause the refrigerator to expend more energy to keep cool.",
+
+                   "Set the correct temperature: The optimum temperature for \
+                   refrigerator operation is 5°C, and -18°C for freezer operation.\
+                   Stand-alone freezers for long storage can be set at 0 degrees.",
+
+                   "Close fridge door immediately: Avoid opening the door for too long.\
+                   Everytime the refrigerator door is opened, cold air escapes and warm\
+                   ambient air enters. To compensate for the temperature increase in its\
+                   interior, the refrigerator must then use energy to bring the temperature back down."
+                   ],
+
+        'ac':    ["Cover the windows in the room: A window letting in the hot sun won't \
+                   just heat up your thermostat, it'll heat you up too. During the warmest\
+                   part of the day, close your window blinds and keep out the sun. It can \
+                   also help insulate your windows, which stops the cold air from escaping.",
+
+                   "Set the temperature high: For air conditioners, the lower the temp, the\
+                    more it costs. So, if possible, set the thermostat to the highest temp\
+                    that will still keep you feeling cool. Maintaining a temperature that’s\
+                    10 to 15 degrees higher than the one you’re used to for 8 hours will save\
+                    you a lot of money.",
+
+                   "Make sure the home is well-insulated: One of the things that leads to massive\
+                    energy consumption is a poorly-insulated home. Cracks are more common, and seals\
+                    are more worn and weathered. To make sure the insulation in your home is good,\
+                    have a utility provider or contractor examine your home."
+                 ],
+
+        'washing_machine': ["Try to use a big load: A smaller load may use less water, but it will use\
+                            the same amount of energy no matter how big the load.",
+
+                            "Run load on the shortest cycle: Run the shortest cycle whenever you can; \
+                            they are designed for efficiency.",
+
+                            "Pre-soak stains: Don’t rely on washing machines to take care of stains. \
+                            That can often lead to washing things more than once, which uses twice the energy.\
+                            Soak your stains in cold water for at least half an hour before washing to save energy."
+                           ]
+    }
+
+    ## Get avg from friends & see which device is above or below avg
 
 
 def dashboard_analytics(request):
@@ -232,7 +288,7 @@ def dashboard_analytics(request):
             owner=request.user).order_by('-month_year')[:12]
     except Exception as e:
         print(e)
-        return redirect('dashboard', new=True)
+        return redirect('dashboard')
 
     try:
         friends_monthly_bills = MonthlyBill.objects.exclude(
@@ -255,14 +311,19 @@ def dashboard_analytics(request):
     total_aggr = total_aggr.power_consumed
     # total_aggr.power_consumed
     disag = DisaggregationResults.objects.filter(
-        total_aggregate=total_aggr).first()
+        total_aggregate=12345.0).first()
     if disag is None:
         # Call the model and store the results back
-        fridge_estimate = get_disaggregation("fridge",total_aggr)
-        ac_estimate = get_disaggregation("air conditioner",total_aggr)
-        wm_estimate = get_disaggregation("washing machine",total_aggr)
+        fridge_estimate = get_disaggregation("fridge", total_aggr)
+        ac_estimate = get_disaggregation("air conditioner", total_aggr)
+        wm_estimate = get_disaggregation("washing machine", total_aggr)
 
-        disag = DisaggregationResults(total_aggregate=total_aggr, fridge=fridge_estimate, ac=ac_estimate, washing_machine=wm_estimate)
+        disag = DisaggregationResults(
+            total_aggregate=total_aggr,
+            fridge=fridge_estimate,
+            ac=ac_estimate,
+            washing_machine=wm_estimate
+        )
         disag.save()
 
     appl_dict = {}
@@ -270,16 +331,13 @@ def dashboard_analytics(request):
     for appl in appliances:
         if appl['name'] == 'fridge':
             appl_dict[appl['name']] = disag.fridge
-            # appl_dict[appl['name']] = appl['qty']*disag.fridge
             others -= disag.fridge
         if appl['name'] == 'air conditioner':
             appl_dict[appl['name']] = disag.ac
             others -= disag.ac
-            # appl_dict[appl['name']] = appl['qty']*disag.ac
         if appl['name'] == 'washing machine':
             appl_dict[appl['name']] = disag.washing_machine
             others -= disag.washing_machine
-            # appl_dict[appl['name']] = appl['qty']*disag.washing_machine
 
     appl_dict["others"] = others
 
