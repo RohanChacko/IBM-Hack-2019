@@ -121,7 +121,7 @@ def dashboard(request):
 
     context = {}
 
-    if request.META.get('HTTP_REFERER') is not None and 'add_addr' in request.META.get('HTTP_REFERER'):
+    if request.META.get('HTTP_REFERER') is not None and 'add_addr' not in request.META.get('HTTP_REFERER'):
         context = dashboard_analytics(request)
 
     context['dashboard_active'] = 'active'
