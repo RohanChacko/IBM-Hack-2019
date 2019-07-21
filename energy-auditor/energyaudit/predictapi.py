@@ -15,7 +15,7 @@ import numpy as np
 
 def get_disaggregation(device, total_aggregate):
 
-    here = os.path.dirname(os.path.abspath(__file__))
+	here = os.path.dirname(os.path.abspath(__file__))
     dataset_file = os.path.join(here, "dataset/iawe2.h5")
 
 
@@ -56,12 +56,12 @@ def get_disaggregation(device, total_aggregate):
     test_mains = test_elec.mains()[1]
     test_meter = test_elec.submeters()[device]
 
-    disag_dataset_file = os.path.join(here,'disag-out.h5')  # The dataset_file of the resulting datastore
-    output = HDFDataStore(disag_dataset_file, 'w')
+    disag_filename = 'disag-out.h5'  # The filename of the resulting datastore
+    output = HDFDataStore(disag_filename, 'w')
 
+    disaggregator = ShortSeq2PointDisaggregator()
     model_file = os.path.join(here,"disag15/IAWE-RNN-h{}-{}-{}epochs.h5".format(1, device,10))
     disaggregator.import_model(model_file)
-
 
     # anykey = input()
     # test_mains: The aggregated signal meter

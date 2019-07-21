@@ -122,6 +122,8 @@ def dashboard(request, new=None):
 
     if new is None:
         context = dashboard_analytics(request)
+        if context is None:
+            context = {}
     context['dashboard_active'] = 'active'
 
     return render(request, 'account/dashboard.html', context)
