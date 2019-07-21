@@ -25,9 +25,18 @@ pip install -r requirements.txt
 ## Run app locally
 
 * Running the Local Server
-`cd IBM-Hack-2019/energy-auditor/`
-`python manage.py runserver`
+```
+cd IBM-Hack-2019/energy-auditor/
+python manage.py runserver
+```
 
+## Implementation details
+
+* Python version - 3.6
+* Framework - Django
+* Frontend - Bootstrap
+* ML Model trained on - Keras on Tensorflow
+* Input from user - Provides monthly electricity bills as input to the app
 
 ## Notes on pushing to IBM Cloud
 
@@ -52,16 +61,13 @@ Navigate to `https://cloud.ibm.com/resources` and click on `Cloud Foundry Apps` 
 
 ### Disaggregation model architecture
 <p align="center">
-  <img src="https://github.com/RohanChacko/IBM-Hack-2019/blob/master/assets/model.png" alt="Disaggregation Model  "/>
+  <img src="https://github.com/RohanChacko/IBM-Hack-2019/blob/master/assets/model.png" alt="Disaggregation Model"/>
 </p>
 
-## Implementation details
-
-* Python version - 3.6
-* Framework - Django
-* Frontend - Bootstrap
-* ML Model trained on - Keras on Tensorflow
-* Input from user - Provides monthly electricity bills as input to the app
+### Architecture Flow Diagram
+<p align="center">
+  <img src="https://github.com/RohanChacko/IBM-Hack-2019/blob/master/assets/crp_arch_flow.png" alt="Architecture Flow"/>
+</p>
 
 ## Directory Structure
 
@@ -115,3 +121,9 @@ Navigate to `https://cloud.ibm.com/resources` and click on `Cloud Foundry Apps` 
 * `energy-auditor/` directory contains the source code for the application
 * `energy-auditor/greenticks/` directory contains the source code for the main application
 * `energy-auditor/energyaudit/` directory contains static files, templates, models, forms, etc
+
+## Notes
+
+* Registered accounts
+  * ID: chacko | Password: greenticks
+  * ID: greenticks | Password: blueticks
