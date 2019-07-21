@@ -14,6 +14,7 @@ import numpy as np
 
 import os
 
+
 def get_disaggregation(device, total_aggregate):
 
     here = os.path.dirname(os.path.abspath(__file__))
@@ -37,10 +38,10 @@ def get_disaggregation(device, total_aggregate):
         print(start, end)
 
         for i in range(total_seconds):
-        	for j in range(7):
-        		print("Progress {:2.1%}".format(i / total_seconds), end="\r")
-        		table[i][1][j] = val_per_second + np.random.uniform(-1e-17,
-         1e-17, 1)
+            for j in range(7):
+                print("Progress {:2.1%}".format(i / total_seconds), end="\r")
+                table[i][1][j] = val_per_second + np.random.uniform(
+                    -1e-17, 1e-17, 1)
 
         f1["building1/elec/meter1/table"][...] = table
 
@@ -69,7 +70,8 @@ def get_disaggregation(device, total_aggregate):
     # output: The output datastore
     # train_meter: This is used in order to copy the metadata of the train
     # meter into the datastore
-    disaggregator.disaggregate(test_mains, output, test_meter, sample_period=15)
+    disaggregator.disaggregate(
+        test_mains, output, test_meter, sample_period=15)
     output.close()
 
     result = DataSet(disag_filename)
