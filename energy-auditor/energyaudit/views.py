@@ -353,10 +353,10 @@ def get_suggestions(request):
             suggestions_list.append(random.choice(SUGGESTION_LIST["fridge"]))
         if appl['name'] == 'air conditioner' and disag.ac > friend_obj.ac:
             suggestions_list.append("Your Fridge is consuming more than your friends' average!")
-            suggestions_list.append(random.choice(SUGGESTION_LIST["fridge"]))
+            suggestions_list.append(random.choice(SUGGESTION_LIST["ac"]))
         if appl['name'] == 'washing machine' and disag.washing_machine > friend_obj.washing_machine:
             suggestions_list.append("Your Fridge is consuming more than your friends' average!")
-            suggestions_list.append(random.choice(SUGGESTION_LIST["fridge"]))
+            suggestions_list.append(random.choice(SUGGESTION_LIST["washing_machine"]))
 
     # return {'suggestions':suggestions_list}
     return suggestions_list
