@@ -51,8 +51,9 @@ Navigate to `https://cloud.ibm.com/resources` and click on `Cloud Foundry Apps` 
 ## Architecture
 
 ### Disaggregation model architecture
-
-![alt text](https://github.com/RohanChacko/IBM-Hack-2019/blob/master/assets/model.png "Disaggregation Model")
+<p align="center">
+  <img src="https://github.com/RohanChacko/IBM-Hack-2019/blob/master/assets/model.png" alt="Disaggregation Model  "/>
+</p>
 
 ## Implementation details
 
