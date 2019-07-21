@@ -1,0 +1,180 @@
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+  return f(*args, **kwds)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+  return f(*args, **kwds)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+  return f(*args, **kwds)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+  return f(*args, **kwds)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/past/translation/__init__.py:35: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+  import imp
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.dtype size changed, may indicate binary incompatibility. Expected 88 from C header, got 96 from PyObject
+  return f(*args, **kwds)
+Using TensorFlow backend.
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+  return f(*args, **kwds)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+  return f(*args, **kwds)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+  return f(*args, **kwds)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+  return f(*args, **kwds)
+========== OPEN DATASETS ============
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/nilm_metadata/file_management.py:16: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  objs = yaml.load(fh)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/numpy/lib/type_check.py:546: DeprecationWarning: np.asscalar(a) is deprecated since NumPy v1.16, use a.item() instead
+  'a.item() instead', DeprecationWarning, stacklevel=1)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/tensorflow/python/framework/tensor_util.py:480: DeprecationWarning: The binary mode of fromstring is deprecated, as it behaves surprisingly on unicode inputs. Use frombuffer instead
+  return np.fromstring(tensor.tensor_content, dtype=dtype).reshape(shape)
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv1d_1 (Conv1D)            (None, 100, 30)           330       
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 100, 30)           0         
+_________________________________________________________________
+conv1d_2 (Conv1D)            (None, 100, 30)           7230      
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 100, 30)           0         
+_________________________________________________________________
+conv1d_3 (Conv1D)            (None, 100, 40)           7240      
+_________________________________________________________________
+dropout_3 (Dropout)          (None, 100, 40)           0         
+_________________________________________________________________
+conv1d_4 (Conv1D)            (None, 100, 50)           10050     
+_________________________________________________________________
+dropout_4 (Dropout)          (None, 100, 50)           0         
+_________________________________________________________________
+conv1d_5 (Conv1D)            (None, 100, 50)           12550     
+_________________________________________________________________
+dropout_5 (Dropout)          (None, 100, 50)           0         
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 5000)              0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 1024)              5121024   
+_________________________________________________________________
+dropout_6 (Dropout)          (None, 1024)              0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 1)                 1025      
+=================================================================
+Total params: 5,159,449
+Trainable params: 5,159,449
+Non-trainable params: 0
+_________________________________________________________________
+None
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/numpy/lib/type_check.py:546: DeprecationWarning: np.asscalar(a) is deprecated since NumPy v1.16, use a.item() instead
+  'a.item() instead', DeprecationWarning, stacklevel=1)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/tensorflow/python/framework/tensor_util.py:480: DeprecationWarning: The binary mode of fromstring is deprecated, as it behaves surprisingly on unicode inputs. Use frombuffer instead
+  return np.fromstring(tensor.tensor_content, dtype=dtype).reshape(shape)
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/keras/engine/saving.py:251: DeprecationWarning: The truth value of an empty array is ambiguous. Returning False, but in future this will result in an error. Use `array.size > 0` to check that an array is not empty.
+  if weight_names:
+2019-07-19 01:26:57.026261: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2019-07-19 01:26:57.026294: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2019-07-19 01:26:57.026303: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2019-07-19 01:26:57.026310: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2019-07-19 01:26:57.026320: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+========== DISAGGREGATE ============
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/nilmtk/metergroup.py:922: UserWarning: As a quick implementation we only get Good Sections from the first meter in the meter group.  We should really return the intersection of the good sections for all meters.  This will be fixed...
+  warn("As a quick implementation we only get Good Sections from"
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/pandas/core/frame.py:6692: FutureWarning: Sorting because non-concatenation axis is not aligned. A future version
+of pandas will change to not sort by default.
+
+To accept the future behavior, pass 'sort=False'.
+
+To retain the current behavior and silence the warning, pass 'sort=True'.
+
+  sort=sort)
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 8682
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 2416
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 6513
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 2237
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 601
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 151
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 307
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 873
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 1393
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 39295
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 34574
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 5792
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 6801
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 17649
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 35880
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 20140
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 28391
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 756
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 22702
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 41610
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 6491
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 28477
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 23031
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 21030
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 51031
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 11008
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 5861
+Loading data for meter ElecMeterID(instance=2, building=1, dataset='iAWE')     
+Done loading data all meters for this chunk.
+New sensible chunk: 7000
+========== RESULTS ============
+/home/atrophy/anaconda3/envs/nilmtk-env/lib/python3.6/site-packages/nilmtk/datastore/hdfdatastore.py:128: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
+  stop=look_ahead_end_i)
+============ Recall: 1.0
+============ Precision: 0.8170290236110429
+============ Accuracy: 0.8170290236110429
+============ F1 Score: 0.8170290236110429
+============ Relative error in total energy: 0.15079329150254367
+============ Mean absolute error(in Watts): 32.91728227605608
+Closing remaining open files:iawe.h5...donedisag-out.h5...doneiawe.h5...done
