@@ -12,6 +12,8 @@ import h5py
 import tables
 import numpy as np
 
+import os
+
 
 def get_disaggregation(device, total_aggregate):
 

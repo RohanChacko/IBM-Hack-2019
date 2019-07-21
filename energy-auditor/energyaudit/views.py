@@ -258,11 +258,16 @@ def dashboard_analytics(request):
         total_aggregate=total_aggr).first()
     if disag is None:
         # Call the model and store the results back
-        fridge_estimate = get_disaggregation("fridge",total_aggr)
-        ac_estimate = get_disaggregation("air conditioner",total_aggr)
-        wm_estimate = get_disaggregation("washing machine",total_aggr)
+        fridge_estimate = get_disaggregation("fridge", total_aggr)
+        ac_estimate = get_disaggregation("air conditioner", total_aggr)
+        wm_estimate = get_disaggregation("washing machine", total_aggr)
 
-        disag = DisaggregationResults(total_aggregate=total_aggr, fridge=fridge_estimate, ac=ac_estimate, washing_machine=wm_estimate)
+        disag = DisaggregationResults(
+            total_aggregate=total_aggr,
+            fridge=fridge_estimate,
+            ac=ac_estimate,
+            washing_machine=wm_estimate
+        )
 
     appl_dict = {}
     for appl in appliances:
