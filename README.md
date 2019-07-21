@@ -15,10 +15,8 @@
 
 ## Installation
 ```bash
-conda create --name venv
-conda activate venv
-# virtualenv --python=python3.6 venv
-# source venv/bin/activate
+conda env create -f environment.yml
+conda activate ibmhack
 pip install -r requirements.txt
 ```
 
