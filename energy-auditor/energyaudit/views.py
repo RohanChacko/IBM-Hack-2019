@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import ApplianceForm, MonthlyBillForm, UserLocationForm
-from django.db.models import Sum
+from django.db.models import Sum,Avg
 from .models import *
 from .predictapi import get_disaggregation
 import random
@@ -173,12 +173,15 @@ def profile(request, pk=None):
 
 
 @login_required
-def add_bill(request, suggestions=None):
+def add_bill(request):
     context = {
         'monthlybill_active': 'active',
         'form': MonthlyBillForm(),
     }
 
+    # Adding suggestions
+    suggestions = get_suggestions(request)
+    print (suggestions)
     if suggestions is not None:
         context['suggestions'] = suggestions
 
@@ -188,10 +191,6 @@ def add_bill(request, suggestions=None):
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-
-            # Adding suggestions
-            suggestions = get_suggestions(request.POST)
-            return redirect('add_bill',  suggestions)
 
     return render(request, 'account/add_bill.html', context)
 
@@ -232,7 +231,7 @@ def add_addr(request):
     return render(request, 'home/add_addr.html', context)
 
 
-def get_suggestions(post_data):
+def get_suggestions(request):
 
     SUGGESTION_LIST = {
         'fridge': ["Position your fridge right: Make sure that there is proper \
@@ -282,7 +281,7 @@ def get_suggestions(post_data):
     ## Get avg from friends & see which device is above or below avg
     try:
         friends_monthly_avg = MonthlyBill.objects.exclude(
-            owner=request.user).aggregate(Avg('power_consumed'))
+            owner=request.user).aggregate(avg=Avg('power_consumed'))
     except Exception as e:
         print(e)
         return None
@@ -291,7 +290,7 @@ def get_suggestions(post_data):
     if friends_monthly_avg is None:
         return None
 
-    total_aggr = friend_suggestions.power_consumed
+    total_aggr = friends_monthly_avg['avg']
 
     disag = DisaggregationResults.objects.filter(
         total_aggregate=12345.0).first()
@@ -319,6 +318,13 @@ def get_suggestions(post_data):
         print(e)
         return None
 
+    try:
+        monthly_bills = MonthlyBill.objects.filter(
+            owner=request.user).order_by('-month_year')[:12]
+    except Exception as e:
+        print(e)
+        return None
+
     total_aggr = monthly_bills.first()
     if total_aggr is None:
         return None
@@ -326,7 +332,7 @@ def get_suggestions(post_data):
     total_aggr = total_aggr.power_consumed
     # total_aggr.power_consumed
     disag = DisaggregationResults.objects.filter(
-        total_aggregate=12345.0).first()
+        total_aggregate=12346.0).first()
     if disag is None:
         # Call the model and store the results back
         fridge_estimate = get_disaggregation("fridge", total_aggr)
