@@ -1,4 +1,4 @@
  applications: 
   - name: Energy Auditor
   - random-route: true
-  - memory: 256M
+  - memory: 16G
