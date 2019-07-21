@@ -4,3 +4,4 @@ __pycache__/
 **/model15min/
 **/.vscode/
 **/iawe.h5
+**/*.h5
