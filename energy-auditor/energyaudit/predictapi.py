@@ -15,9 +15,8 @@ import numpy as np
 
 def get_disaggregation(device, total_aggregate):
 
-	here = os.path.dirname(os.path.abspath(__file__))
+    here = os.path.dirname(os.path.abspath(__file__))
     dataset_file = os.path.join(here, "dataset/iawe2.h5")
-
 
     devices = ["fridge", "air conditioner", "washing machine"]
     if device not in devices:
@@ -60,7 +59,8 @@ def get_disaggregation(device, total_aggregate):
     output = HDFDataStore(disag_filename, 'w')
 
     disaggregator = ShortSeq2PointDisaggregator()
-    model_file = os.path.join(here,"disag15/IAWE-RNN-h{}-{}-{}epochs.h5".format(1, device,10))
+    model_file = os.path.join(
+        here, "disag15/IAWE-RNN-h{}-{}-{}epochs.h5".format(1, device, 10))
     disaggregator.import_model(model_file)
 
     # anykey = input()

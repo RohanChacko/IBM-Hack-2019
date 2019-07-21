@@ -16,22 +16,18 @@ import numpy as np
 import os
 
 
-
-
-
 def get_disaggregation(device, total_aggregate):
 
     here = os.path.dirname(os.path.abspath(__file__))
     dataset_file = os.path.join(here, "dataset/iawe2.h5")
 
-    
     devices = ["fridge", "air conditioner", "washing machine"]
     if device not in devices:
         return None
 
-    total_entries = int(30*24*60/15)
+    total_entries = 30*24*4  # 30*24*60*60/900
     val_per_entry = float(total_aggregate)/total_entries
-    print("TOTAL ",total_entries," VAL ",val_per_entry)
+    print("TOTAL ", total_entries, " VAL ", val_per_entry)
 
     start = 0
     end = 0
@@ -44,10 +40,10 @@ def get_disaggregation(device, total_aggregate):
         print(start, end)
 
         for i in range(total_entries):
-        	for j in range(7):
-        		print("Progress {:2.1%}".format(i / total_entries), end="\r")
-        		table[i][1][j] = val_per_entry + np.random.uniform(-1e-10,
-         1e-10, 1)
+            for j in range(7):
+                print("Progress {:2.1%}".format(i / total_entries), end="\r")
+                table[i][1][j] = val_per_entry + np.random.uniform(
+                    -1e-10, 1e-10, 1)
 
         f1["building1/elec/meter1/table"][...] = table
 
@@ -64,11 +60,13 @@ def get_disaggregation(device, total_aggregate):
     test_mains = test_elec.mains()[1]
     test_meter = test_elec.submeters()[device]
 
-    disag_dataset_file = os.path.join(here,'disag-out.h5')  # The dataset_file of the resulting datastore
+    disag_dataset_file = os.path.join(here, 'disag-out.h5')
+    # The dataset_file of the resulting datastore
     output = HDFDataStore(disag_dataset_file, 'w')
 
     disaggregator = ShortSeq2PointDisaggregator()
-    model_file = os.path.join(here,"disag15/IAWE-RNN-h{}-{}-{}epochs.h5".format(1, device,10))
+    model_file = os.path.join(
+        here, "disag15/IAWE-RNN-h{}-{}-{}epochs.h5".format(1, device, 10))
     disaggregator.import_model(model_file)
 
     # anykey = input()
