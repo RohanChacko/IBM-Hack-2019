@@ -55,14 +55,12 @@ bottom: .5em;
 
           <tr>
             <td>
-              <a href="{% url 'profile_with_pk' pk=user.pk %}">
                 {{user.username}}
-              </a>
             </td>
             {% for loc in location %}
               <td>{{ loc.city }}, {{ loc.state }}</td>
             {% endfor %}
-            
+
             <td>{{user.rank}}</td>
             <td>{{user.energy_saved}}</td>
           </tr>

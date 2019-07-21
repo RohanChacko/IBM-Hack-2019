@@ -38,25 +38,6 @@ python manage.py runserver
 * ML Model trained on - Keras on Tensorflow
 * Input from user - Provides monthly electricity bills as input to the app
 
-## Notes on pushing to IBM Cloud
-
-### Login details
-* IBM Cloud ID: `rohanchacko007@gmail.com`
-* Password: `Greenticks4$`
-
-### Prerequisites
-* Install IBMCloud CLI `curl -sL https://ibm.biz/idt-installer | bash
-`  
-
-After making changes to the app, run the following commands to push to IBM Cloud
-```bash
-ibmcloud login
-ibmcloud target --cf
-ibmcloud cf push Energy\ Auditor -b https://github.com/cloudfoundry/python-buildpack#v1.6.34
-```
-
-Navigate to `https://cloud.ibm.com/resources` and click on `Cloud Foundry Apps` and click on `Energy Auditor`
-
 ## Architecture
 
 ### Disaggregation model architecture
