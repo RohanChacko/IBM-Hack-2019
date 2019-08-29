@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ApplianceForm, MonthlyBillForm, UserLocationForm
 from django.db.models import Sum,Avg
 from .models import *
-from .predictapi import get_disaggregation
+# from .predictapi import get_disaggregation
 import random
 
 # Create your views here.
@@ -123,8 +123,8 @@ def dashboard(request):
 
     if request.META.get('HTTP_REFERER') is not None and 'add_addr' not in request.META.get('HTTP_REFERER'):
         context = dashboard_analytics(request)
-    # if context is None:
-    #     context = {}
+    if context is None:
+        context = {}
 
     context['dashboard_active'] = 'active'
 
@@ -140,13 +140,14 @@ def leaderboard(request, pk=None):
         user = request.user
 
     users = User.objects.exclude(id=request.user.id)
-    location = UserLocation.objects.exclude(
-        owner=request.user).values('city', 'state').all()
+
+    locations = UserLocation.objects.exclude(
+        owner=request.user).values('owner', 'city', 'state').all()
 
     context = {
         'leaderboard_active': 'active',
         'users': users,
-        'location': location,
+        'location': locations,
     }
 
     return render(request, 'account/leaderboard.html', context)
@@ -294,7 +295,7 @@ def get_suggestions(request):
     total_aggr = friends_monthly_avg['avg']
 
     disag = DisaggregationResults.objects.filter(
-        total_aggregate=12345.0).first()
+        total_aggregate=12346.0).first()
     if disag is None:
         # Call the model and store the results back
         fridge_estimate = get_disaggregation("fridge", total_aggr)
@@ -331,9 +332,9 @@ def get_suggestions(request):
         return None
 
     total_aggr = total_aggr.power_consumed
-    # total_aggr.power_consumed
+    # total_aggr.power_consumed CELERY HERE
     disag = DisaggregationResults.objects.filter(
-        total_aggregate=12346.0).first()
+        total_aggregate=total_aggr).first()
     if disag is None:
         # Call the model and store the results back
         fridge_estimate = get_disaggregation("fridge", total_aggr)
@@ -393,9 +394,9 @@ def dashboard_analytics(request):
         return None
 
     total_aggr = total_aggr.power_consumed
-    # total_aggr.power_consumed
+    # total_aggr.power_consumed CELERY HERE
     disag = DisaggregationResults.objects.filter(
-        total_aggregate=12345.0).first()
+        total_aggregate=total_aggr).first()
     if disag is None:
         # Call the model and store the results back
         fridge_estimate = get_disaggregation("fridge", total_aggr)

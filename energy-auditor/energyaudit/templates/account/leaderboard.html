@@ -46,8 +46,8 @@ bottom: .5em;
           </th>
           <th class="th-sm">Rank
           </th>
-          <th class="th-sm">Energy Saved
-          </th>
+          <!-- <th class="th-sm">Energy Saved
+          </th> -->
         </tr>
       </thead>
       <tbody>
@@ -58,16 +58,17 @@ bottom: .5em;
                 {{user.username}}
             </td>
             {% for loc in location %}
+              {% if user.pk == loc.owner %}
               <td>{{ loc.city }}, {{ loc.state }}</td>
+              {% endif %}
             {% endfor %}
-
-            <td>{{user.rank}}</td>
-            <td>{{user.energy_saved}}</td>
+            <td>{{user.pk}}</td>
+            <!-- <td>{{user.energy_saved}}</td> -->
           </tr>
 
         {% endfor %}
       </tbody>
-      <tfoot>
+      <!-- <tfoot>
         <tr>
           <th>Name
           </th>
@@ -75,10 +76,10 @@ bottom: .5em;
           </th>
           <th>Rank
           </th>
-          <th>Energy Saved
+          <!-- <th>Energy Saved
           </th>
         </tr>
-      </tfoot>
+      </tfoot> -->
     </table>
 
   </div>

@@ -73,7 +73,7 @@ class UserLocation(models.Model):
 
 
 class DisaggregationResults(models.Model):
-    total_aggregate = models.FloatField()
-    fridge = models.FloatField()
-    ac = models.FloatField()
-    washing_machine = models.FloatField()
+    total_aggregate = models.FloatField(default=12346)
+    fridge = models.FloatField(default=0)
+    ac = models.FloatField(default=0)
+    washing_machine = models.FloatField(default=0)
