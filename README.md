@@ -11,7 +11,7 @@
 * [Directory Structure](#directory-structure)
 * [Implementation Details](#implementation-details)
 * [Architecture](#architecture)
-* [Notes](#notes)
+* [Notes](#notes)  
 
 ## Installation
 ```bash
