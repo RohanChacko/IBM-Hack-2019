@@ -55,7 +55,7 @@ networkx==2.1
 nilm-metadata==0.2.2
 nilmtk===0.3.0.dev-5cf396b
 nose==1.3.7
-notebook==6.0.0
+notebook==6.1.5
 numexpr==2.6.9
 numpy==1.16.4
 pandas==0.25.0
