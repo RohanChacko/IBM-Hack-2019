@@ -72,7 +72,7 @@ psycopg2==2.8.3
 ptyprocess==0.6.0
 pycodestyle==2.5.0
 pydot==1.4.1
-Pygments==2.4.2
+Pygments==2.7.4
 pygpu==0.7.6
 pylint==2.3.1
 pyparsing==2.4.0
